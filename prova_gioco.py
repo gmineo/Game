@@ -2,25 +2,43 @@ import streamlit as st
 import yfinance as yf
 import plotly.graph_objs as go
 import time
+import random
+from datetime import datetime, timedelta
+
+# Funzione per ottenere un intervallo di 3 anni casuali
+def random_3_years():
+    # Data corrente
+    today = datetime.today()
+
+    # Calcola una data casuale entro gli ultimi 20 anni
+    random_start = today - timedelta(days=random.randint(3*365, 20*365))
+
+    # Data finale è 3 anni dopo la data casuale di partenza
+    random_end = random_start + timedelta(days=3*365)
+
+    return random_start.strftime('%Y-%m-%d'), random_end.strftime('%Y-%m-%d')
+
 
 # Titolo dell'app
-st.header("Confronto Titoli Azionari - Variazione Percentuale")
+st.header("Confronto Titoli Azionari - Variazione Percentuale (3 anni casuali)")
 
 # Input dell'utente per selezionare i simboli azionari
 stock_symbol_1 = st.sidebar.text_input("Inserisci il simbolo del primo titolo azionario (es: AAPL, TSLA, MSFT):", "AAPL")
 stock_symbol_2 = st.sidebar.text_input("Inserisci il simbolo del secondo titolo azionario (es: GOOGL, AMZN, FB):", "GOOGL")
 
-# Input dell'utente per selezionare il periodo
-period = st.sidebar.selectbox("Seleziona il periodo di tempo:",
-                              ("1mo", "3mo", "6mo", "1y", "5y", "10y"))
-
 # Bottone per iniziare la generazione del grafico
 if st.button("Start"):
-    # Mostra un messaggio di caricamento,
+    # Seleziona un intervallo di 3 anni casuale
+    start_date, end_date = random_3_years()
+
+    # Mostra le date scelte casualmente
+    st.write(f"Periodo selezionato casualmente: dal **{start_date}** al **{end_date}**")
+
+    # Mostra un messaggio di caricamento
     with st.spinner("Caricamento dei dati in corso..."):
         # Carica i dati per entrambi i titoli selezionati
-        stock_data_1 = yf.download(stock_symbol_1, period=period)
-        stock_data_2 = yf.download(stock_symbol_2, period=period)
+        stock_data_1 = yf.download(stock_symbol_1, start=start_date, end=end_date)
+        stock_data_2 = yf.download(stock_symbol_2, start=start_date, end=end_date)
 
     # Calcola la variazione percentuale per il primo titolo
     stock_data_1['Percent Change'] = (stock_data_1['Close'] - stock_data_1['Close'][0]) / stock_data_1['Close'][0] * 100
@@ -38,7 +56,7 @@ if st.button("Start"):
     fig.add_trace(go.Scatter(x=[], y=[], mode='lines', name=stock_symbol_2))
 
     # Imposta layout del grafico
-    fig.update_layout(title=f"Confronto Variazione Percentuale: {stock_symbol_1} vs {stock_symbol_2}",
+    fig.update_layout(title=f"Confronto Variazione Percentuale: {stock_symbol_1} vs {stock_symbol_2} (3 anni casuali)",
                       xaxis_title="Data",
                       yaxis_title="Variazione Percentuale (%)")
 
