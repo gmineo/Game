@@ -12,7 +12,7 @@ stock_symbol_2 = st.sidebar.text_input("Inserisci il simbolo del secondo titolo 
 
 # Input dell'utente per selezionare il periodo
 period = st.sidebar.selectbox("Seleziona il periodo di tempo:",
-                              ("1mo", "3mo", "6mo", "1y", "3y", "5y", "10y"))
+                              ("1mo", "3mo", "6mo", "1y", "5y", "10y"))
 
 # Bottone per iniziare la generazione del grafico
 if st.button("Start"):
