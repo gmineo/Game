@@ -2,4 +2,4 @@ pandas
 yfinance
 streamlit
 plotly
-plotly.graph_objs 
+
