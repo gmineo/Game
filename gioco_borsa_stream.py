@@ -24,11 +24,8 @@ stocks = [
 # Titolo dell'app
 st.title("Seleziona i tuoi titoli preferiti")
 
-# Checkboxes per ogni titolo
-stock_input = []
-for stock in stocks:
-    if st.checkbox(stock, key=stock):
-        stock_input.append(stock)
+# Menu a tendina per selezionare più titoli
+stock_input = st.multiselect("Scegli i titoli:", options=stocks)
 
 # Mostrare i titoli selezionati
 st.write("Titoli selezionati:", stock_input)
@@ -36,7 +33,6 @@ st.write("Titoli selezionati:", stock_input)
 # Salvare i titoli selezionati
 if st.button("Salva selezione"):
     st.write("I seguenti titoli sono stati salvati:", stock_input)
-
 
 
 
