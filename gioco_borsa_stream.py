@@ -7,14 +7,10 @@ Original file is located at
     https://colab.research.google.com/drive/1esFTH_d8I7DXSsfsSpOoHUSKlVaDHfle
 """
 
-pip install streamlit yfinance plotly
-
-# Commented out IPython magic to ensure Python compatibility.
-# %%writefile app.py
-# import streamlit as st
-# import yfinance as yf
-# import pandas as pd
-# import plotly.graph_objects as go
+import streamlit as st
+import yfinance as yf
+import pandas as pd
+import plotly.graph_objects as go
 
 # Set the title of the Streamlit app
 st.title("Try to beat the market")
