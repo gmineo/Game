@@ -21,11 +21,9 @@ stocks = [
     "NVIDIA", "Meta", "Visa", "JPMorgan Chase", "Berkshire Hathaway"
 ]
 
-# Titolo dell'app
-st.title("Seleziona i tuoi titoli preferiti")
 
 # Menu a tendina per selezionare più titoli
-stock_input = st.multiselect("Scegli i titoli:", options=stocks)
+stock_input = st.multiselect("Select stocks:", options=stocks)
 
 # Mostrare i titoli selezionati
 st.write("Titoli selezionati:", stock_input)
