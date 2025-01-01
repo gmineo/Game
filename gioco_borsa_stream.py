@@ -19,8 +19,7 @@ data = {'name': ['Apple', 'Alphabet', 'Microsoft', 'Amazon', 'NVIDIA', 'Meta', '
 
 # Lista di titoli
 stocks = [
-    "Apple", "Microsoft", "Amazon", "Alphabet", "Tesla",
-    "NVIDIA", "Meta", "Visa", "JPMorgan Chase", "Berkshire Hathaway"
+    'Apple', 'Alphabet', 'Microsoft', 'Amazon', 'NVIDIA', 'Meta', 'Tesla', 'Berkshire Hathaway', 'Eli Lilly', 'Visa', 'Broadcom', 'JPMorgan Chase', 'UnitedHealth', 'Walmart', 'Mastercard', 'Exxon Mobil', 'Johnson & Johnson', 'Procter & Gamble', 'Home Depot', 'Costco', 'Chevron', 'Bank of America', 'Pfizer', 'Walt Disney', 'PayPal', 'Verizon', 'Intel', 'Coca-Cola', 'Wells Fargo', 'AT&T', 'General Electric', 'Oracle', 'Citigroup', 'IBM', 'Philip Morris Int.', 'Cisco Systems', 'Merck', 'PepsiCo', 'AIG', 'Amgen', 'UPS', 'Bristol-Myers Squibb', 'Qualcomm', 'Loews', 'Raytheon', 'McDonald’s', 'Boeing', '3M', 'Altria Group'
 ]
 
 # Menu a tendina per selezionare più titoli
