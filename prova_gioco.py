@@ -46,10 +46,16 @@ else:
         with st.spinner("Caricamento dei dati in corso..."):
             # Carica i dati per entrambi i titoli selezionati
             stock_data_1 = yf.download(stock_symbol_1, start=start_date, end=end_date)
+            stock_data_1.columns = data.columns.droplevel(1)  # Rimuove il livello superiore (Ticker)
+            stock_data_1 = data[['Close']]  # Mantieni solo la colonna 'Close'
             stock_data_2 = yf.download(stock_symbol_2, start=start_date, end=end_date)
+            stock_data_2.columns = data.columns.droplevel(1)  # Rimuove il livello superiore (Ticker)
+            stock_data_2 = data[['Close']]  # Mantieni solo la colonna 'Close'
 
             # Carica i dati per l'indice S&P 500
             sp500_data = yf.download("^GSPC", start=start_date, end=end_date)
+            sp500_data.columns = data.columns.droplevel(1)  # Rimuove il livello superiore (Ticker)
+            sp500_data = data[['Close']]  # Mantieni solo la colonna 'Close'
 
         # Calcola la variazione percentuale per il primo titolo
         stock_data_1['Percent Change'] = (stock_data_1['Close'] - stock_data_1['Close'][0]) / stock_data_1['Close'][0] * 100
