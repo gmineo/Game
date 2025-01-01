@@ -15,6 +15,27 @@ import plotly.graph_objects as go
 # Set the title of the Streamlit app
 st.title("Try to beat the market")
 
+# Lista di titoli
+stocks = [
+    "Apple", "Microsoft", "Amazon", "Alphabet", "Tesla",
+    "NVIDIA", "Meta", "Visa", "JPMorgan Chase", "Berkshire Hathaway"
+]
+
+# Titolo dell'app
+st.title("Seleziona i tuoi titoli preferiti")
+
+# Checkboxes per ogni titolo
+stock_input = []
+for stock in stocks:
+    if st.checkbox(stock, key=stock):
+        stock_input.append(stock)
+
+# Mostrare i titoli selezionati
+st.write("Titoli selezionati:", stock_input)
+
+# Salvare i titoli selezionati
+if st.button("Salva selezione"):
+    st.write("I seguenti titoli sono stati salvati:", stock_input)
 
 
 
