@@ -15,12 +15,35 @@ import plotly.graph_objects as go
 # Set the title of the Streamlit app
 st.title("Try to beat the market")
 
-data = {'name': ['Apple', 'Alphabet', 'Microsoft', 'Amazon', 'NVIDIA', 'Meta', 'Tesla', 'Berkshire Hathaway', 'Eli Lilly', 'Visa', 'Broadcom', 'JPMorgan Chase', 'UnitedHealth', 'Walmart', 'Mastercard', 'Exxon Mobil', 'Johnson & Johnson', 'Procter & Gamble', 'Home Depot', 'Costco', 'Chevron', 'Bank of America', 'Pfizer', 'Walt Disney', 'PayPal', 'Verizon', 'Intel', 'Coca-Cola', 'Wells Fargo', 'AT&T', 'General Electric', 'Oracle', 'Citigroup', 'IBM', 'Philip Morris Int.', 'Cisco Systems', 'Merck', 'PepsiCo', 'AIG', 'Amgen', 'UPS', 'Bristol-Myers Squibb', 'Qualcomm', 'Loews', 'Raytheon', 'McDonald’s', 'Boeing', '3M', 'Altria Group'], 'ticker': ['AAPL', 'GOOG', 'MSFT', 'AMZN', 'NVDA', 'META', 'TSLA', 'BRK-B', 'LLY', 'V', 'AVGO', 'JPM', 'UNH', 'WMT', 'MA', 'XOM', 'JNJ', 'PG', 'HD', 'COST', 'CVX', 'BAC', 'PFE', 'DIS', 'PYPL', 'VZ', 'INTC', 'KO', 'WFC', 'T', 'GE', 'ORCL', 'C', 'IBM', 'PM', 'CSCO', 'MRK', 'PEP', 'AIG', 'AMGN', 'UPS', 'BMY', 'QCOM', 'L', 'RTX', 'MCD', 'BA', 'MMM', 'MO'], 'ipo': [1980, 2004, 1986, 1997, 1999, 2012, 2010, 1965, 1952, 2008, 2009, 1969, 1984, 1970, 2006, 1972, 1944, 1890, 1981, 1985, 1926, 1971, 1942, 1957, 2002, 2000, 1971, 1919, 1978, 1984, 1892, 1986, 1986, 1916, 2008, 1990, 1970, 1965, 1969, 1983, 1999, 1933, 1991, 1969, 1980, 1965, 1962, 1946, 2008]}
+#data = {'name': ['Apple', 'Alphabet', 'Microsoft', 'Amazon', 'NVIDIA', 'Meta', 'Tesla', 'Berkshire Hathaway', 'Eli Lilly', 'Visa', 'Broadcom', 'JPMorgan Chase', 'UnitedHealth', 'Walmart', 'Mastercard', 'Exxon Mobil', 'Johnson & Johnson', 'Procter & Gamble', 'Home Depot', 'Costco', 'Chevron', 'Bank of America', 'Pfizer', 'Walt Disney', 'PayPal', 'Verizon', 'Intel', 'Coca-Cola', 'Wells Fargo', 'AT&T', 'General Electric', 'Oracle', 'Citigroup', 'IBM', 'Philip Morris Int.', 'Cisco Systems', 'Merck', 'PepsiCo', 'AIG', 'Amgen', 'UPS', 'Bristol-Myers Squibb', 'Qualcomm', 'Loews', 'Raytheon', 'McDonald’s', 'Boeing', '3M', 'Altria Group'], 'ticker': ['AAPL', 'GOOG', 'MSFT', 'AMZN', 'NVDA', 'META', 'TSLA', 'BRK-B', 'LLY', 'V', 'AVGO', 'JPM', 'UNH', 'WMT', 'MA', 'XOM', 'JNJ', 'PG', 'HD', 'COST', 'CVX', 'BAC', 'PFE', 'DIS', 'PYPL', 'VZ', 'INTC', 'KO', 'WFC', 'T', 'GE', 'ORCL', 'C', 'IBM', 'PM', 'CSCO', 'MRK', 'PEP', 'AIG', 'AMGN', 'UPS', 'BMY', 'QCOM', 'L', 'RTX', 'MCD', 'BA', 'MMM', 'MO'], 'ipo': [1980, 2004, 1986, 1997, 1999, 2012, 2010, 1965, 1952, 2008, 2009, 1969, 1984, 1970, 2006, 1972, 1944, 1890, 1981, 1985, 1926, 1971, 1942, 1957, 2002, 2000, 1971, 1919, 1978, 1984, 1892, 1986, 1986, 1916, 2008, 1990, 1970, 1965, 1969, 1983, 1999, 1933, 1991, 1969, 1980, 1965, 1962, 1946, 2008]}
 
 # Lista di titoli
-stocks = [
+#stocks = [
     'Apple', 'Alphabet', 'Microsoft', 'Amazon', 'NVIDIA', 'Meta', 'Tesla', 'Berkshire Hathaway', 'Eli Lilly', 'Visa', 'Broadcom', 'JPMorgan Chase', 'UnitedHealth', 'Walmart', 'Mastercard', 'Exxon Mobil', 'Johnson & Johnson', 'Procter & Gamble', 'Home Depot', 'Costco', 'Chevron', 'Bank of America', 'Pfizer', 'Walt Disney', 'PayPal', 'Verizon', 'Intel', 'Coca-Cola', 'Wells Fargo', 'AT&T', 'General Electric', 'Oracle', 'Citigroup', 'IBM', 'Philip Morris Int.', 'Cisco Systems', 'Merck', 'PepsiCo', 'AIG', 'Amgen', 'UPS', 'Bristol-Myers Squibb', 'Qualcomm', 'Loews', 'Raytheon', 'McDonald’s', 'Boeing', '3M', 'Altria Group'
 ]
+
+data = {
+    'name': [
+        'Apple', 'Alphabet', 'Microsoft', 'Amazon', 'NVIDIA', 'Meta', 'Tesla',
+        'Berkshire Hathaway', 'Eli Lilly', 'Visa', 'Broadcom', 'JPMorgan Chase',
+        'UnitedHealth', 'Walmart', 'Mastercard', 'Exxon Mobil', 'Johnson & Johnson',
+        'Procter & Gamble', 'Home Depot', 'Costco', 'Chevron', 'Bank of America',
+        'Pfizer', 'Walt Disney', 'PayPal', 'Verizon', 'Intel', 'Coca-Cola',
+        'Wells Fargo', 'AT&T', 'General Electric', 'Oracle', 'Citigroup', 'IBM',
+        'Philip Morris Int.', 'Cisco Systems', 'Merck', 'PepsiCo', 'AIG', 'Amgen',
+        'UPS', 'Bristol-Myers Squibb', 'Qualcomm', 'Loews', 'Raytheon', 'McDonald’s',
+        'Boeing', '3M', 'Altria Group'
+    ],
+    'ticker': [
+        'AAPL', 'GOOG', 'MSFT', 'AMZN', 'NVDA', 'META', 'TSLA', 'BRK-B', 'LLY', 'V',
+        'AVGO', 'JPM', 'UNH', 'WMT', 'MA', 'XOM', 'JNJ', 'PG', 'HD', 'COST', 'CVX',
+        'BAC', 'PFE', 'DIS', 'PYPL', 'VZ', 'INTC', 'KO', 'WFC', 'T', 'GE', 'ORCL',
+        'C', 'IBM', 'PM', 'CSCO', 'MRK', 'PEP', 'AIG', 'AMGN', 'UPS', 'BMY', 'QCOM',
+        'L', 'RTX', 'MCD', 'BA', 'MMM', 'MO'
+    ]
+}
+
+
 
 # Menu a tendina per selezionare più titoli
 stock_input = st.multiselect("Select stocks:", options=stocks)
