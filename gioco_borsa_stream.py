@@ -54,9 +54,9 @@ df = pd.DataFrame(data)
 selected_stock = st.selectbox("Seleziona un titolo per scaricare i dati:", options=df['name'])
 
 
-if stock_input:
+if selected_stock:
     # Ottieni il ticker selezionato
-    ticker_symbol = df[df['name'] == stock_input]['ticker'].values[0]
+    ticker_symbol = df[df['name'] == selected_stock]['ticker'].values[0]
 
     # Scarica i dati storici per il periodo massimo disponibile
     stock = yf.Ticker(ticker_symbol)
