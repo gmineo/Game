@@ -52,8 +52,10 @@ stock_input = st.multiselect("Select stocks:", options=df['name'])
 
 # Controlla se sono stati selezionati titoli
 if stock_input:
-    # Filtra i ticker corrispondenti ai nomi selezionati
-    selected_tickers = df[df['name'].isin(stock_input)]['ticker'].tolist()
+    # Filtra i dati corrispondenti ai titoli selezionati
+    selected_stocks = df[df['name'].isin(stock_input)]
+    selected_tickers = selected_stocks['ticker'].tolist()
+    max_ipo_year = selected_stocks['ipo'].max()  # Anno di IPO più recente
 
     # Inizializza un DataFrame vuoto per raccogliere i dati
     combined_data = pd.DataFrame()
@@ -61,25 +63,13 @@ if stock_input:
     # Scarica i dati storici per ogni titolo selezionato
     for ticker in selected_tickers:
         stock = yf.Ticker(ticker)
-        hist = stock.history(period="max")
+        hist = stock.history(start=f"{max_ipo_year}-01-01")  # Filtra dall'anno più recente
         hist['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
         combined_data = pd.concat([combined_data, hist])
 
     # Mostra i dati scaricati
     st.subheader("Dati storici")
     st.dataframe(combined_data)
-
-    # Opzione per scaricare i dati come file CSV
-    csv = combined_data.to_csv()
-    st.download_button(
-        label="Scarica i dati in formato CSV",
-        data=csv,
-        file_name="stock_historical_data.csv",
-        mime="text/csv"
-    )
-else:
-    st.write("Seleziona almeno un titolo per visualizzare i dati.")
-
 
 
 
