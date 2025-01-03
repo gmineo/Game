@@ -27,7 +27,7 @@ stock_input = st.multiselect("Select stocks:", options=stocks)
 
 # Converte i dati in un DataFrame
 
-df = pd.DataFrame()
+df = pd.DataFrame(data)
 if stock_input:
     # Ottieni il ticker selezionato
     ticker_symbol = df[df['name'] == stock_input]['ticker'].values[0]
