@@ -67,9 +67,25 @@ if stock_input:
         hist['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
         combined_data = pd.concat([combined_data, hist])
 
-    # Mostra i dati scaricati
-    st.subheader("Dati storici")
-    st.dataframe(combined_data)
+# Riorganizza i dati per costruire il portafoglio
+    pivot_data = combined_data.pivot_table(values='Close', index=combined_data.index, columns='Ticker')
+
+    # Calcola i pesi equamente distribuiti
+    num_stocks = len(selected_tickers)
+    weights = [1 / num_stocks] * num_stocks
+
+    # Calcola il valore giornaliero del portafoglio
+    portfolio_values = pivot_data.dot(weights)
+
+    # Crea un DataFrame per il portafoglio
+    portfolio_df = pd.DataFrame({
+        'Date': portfolio_values.index,
+        'Portfolio Value': portfolio_values
+    }).set_index('Date')
+
+    # Mostra i dati del portafoglio
+    st.subheader("Valore del portafoglio")
+    st.line_chart(portfolio_df)
 
 
 
