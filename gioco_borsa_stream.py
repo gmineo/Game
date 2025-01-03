@@ -46,12 +46,39 @@ data = {
 # Converte i dati in un DataFrame
 df = pd.DataFrame(data)
 
-# Menu a tendina per selezionare più titoli
-#stock_input = st.multiselect("Select stocks:", options=stocks)
-
 
 # Menu a tendina per selezionare più titoli
 stock_input = st.multiselect("Select stocks:", options=df['name'])
+
+# Controlla se sono stati selezionati titoli
+if stock_input:
+    # Filtra i ticker corrispondenti ai nomi selezionati
+    selected_tickers = df[df['name'].isin(stock_input)]['ticker'].tolist()
+
+    # Inizializza un DataFrame vuoto per raccogliere i dati
+    combined_data = pd.DataFrame()
+
+    # Scarica i dati storici per ogni titolo selezionato
+    for ticker in selected_tickers:
+        stock = yf.Ticker(ticker)
+        hist = stock.history(period="max")
+        hist['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
+        combined_data = pd.concat([combined_data, hist])
+
+    # Mostra i dati scaricati
+    st.subheader("Dati storici")
+    st.dataframe(combined_data)
+
+    # Opzione per scaricare i dati come file CSV
+    csv = combined_data.to_csv()
+    st.download_button(
+        label="Scarica i dati in formato CSV",
+        data=csv,
+        file_name="stock_historical_data.csv",
+        mime="text/csv"
+    )
+else:
+    st.write("Seleziona almeno un titolo per visualizzare i dati.")
 
 
 
