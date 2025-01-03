@@ -43,34 +43,15 @@ data = {
 }
 
 
+# Converte i dati in un DataFrame
+df = pd.DataFrame(data)
 
 # Menu a tendina per selezionare più titoli
 #stock_input = st.multiselect("Select stocks:", options=stocks)
 
 
-# Converte i dati in un DataFrame
-df = pd.DataFrame(data)
-
-st.dataframe(df)
-# Menu a tendina per selezionare un titolo
-selected_stock = st.selectbox("Seleziona un titolo per scaricare i dati:", options=df['name'])
-
-
-if selected_stock:
-    # Ottieni il ticker selezionato
-    ticker_symbol = df[df['name'] == selected_stock]['ticker'].values[0]
-
-    # Scarica i dati storici per il periodo massimo disponibile
-    stock = yf.Ticker(ticker_symbol)
-    hist = stock.history(period="max")
-
-    # Mostra i dati scaricati
-    st.subheader(f"Dati storici per {selected_stock} ({ticker_symbol})")
-    st.dataframe(hist)
-
-else:
-    st.write("Seleziona un titolo per visualizzare i dati storici.")
-
+# Menu a tendina per selezionare più titoli
+stock_input = st.multiselect("Select stocks:", options=df['name'])
 
 
 
