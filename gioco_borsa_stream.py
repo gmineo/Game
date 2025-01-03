@@ -87,5 +87,51 @@ if stock_input:
     st.subheader("Valore del portafoglio")
     st.line_chart(portfolio_df)
 
+# Grafico animato
+    st.subheader("Evoluzione del portafoglio (Grafico animato)")
+    fig = go.Figure()
 
+    # Aggiungi tracce iniziali
+    fig.add_trace(go.Scatter(x=portfolio_df.index[:1], y=portfolio_df['Portfolio Value'][:1], mode='lines', name='Portfolio Value'))
+
+    # Frames per l'animazione
+    frames = [
+        go.Frame(
+            data=[
+                go.Scatter(x=portfolio_df.index[:k+1], y=portfolio_df['Portfolio Value'][:k+1], mode='lines')
+            ],
+            name=str(k)
+        ) for k in range(len(portfolio_df))
+    ]
+    fig.frames = frames
+
+    # Configura layout e animazione
+    fig.update_layout(
+        xaxis=dict(title='Date'),
+        yaxis=dict(title='Portfolio Value'),
+        title='Portfolio Value Over Time',
+        updatemenus=[
+            dict(
+                type="buttons",
+                showactive=False,
+                buttons=[
+                    dict(label="Play", method="animate", args=[None, {"frame": {"duration": 20, "redraw": True}, "fromcurrent": True}])
+                ]
+            )
+        ],
+        sliders=[{
+            "steps": [
+                {"args": [[str(k)], {"frame": {"duration": 20, "redraw": True}, "mode": "immediate"}],
+                 "label": str(portfolio_df.index[k].date()), "method": "animate"} for k in range(len(portfolio_df))
+            ],
+            "transition": {"duration": 0},
+            "x": 0.1,
+            "len": 0.9
+        }]
+    )
+
+    st.plotly_chart(fig)
+
+else:
+    st.write("Seleziona almeno un titolo per visualizzare i dati.")
 
