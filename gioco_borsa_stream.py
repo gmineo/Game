@@ -50,8 +50,9 @@ data = {
 # Converte i dati in un DataFrame
 df = pd.DataFrame(data)
 
+st.dataframe(df)
 # Menu a tendina per selezionare un titolo
-selected_stock = st.multiselect("Seleziona un titolo per scaricare i dati:", options=df['name'])
+selected_stock = st.selectbox("Seleziona un titolo per scaricare i dati:", options=df['name'])
 
 
 if selected_stock:
