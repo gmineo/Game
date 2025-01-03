@@ -44,11 +44,16 @@ data = {
 
 
 # Menu a tendina per selezionare più titoli
-stock_input = st.multiselect("Select stocks:", options=stocks)
+#stock_input = st.multiselect("Select stocks:", options=stocks)
+
 
 # Converte i dati in un DataFrame
-
 df = pd.DataFrame(data)
+
+# Menu a tendina per selezionare un titolo
+selected_stock = st.selectbox("Seleziona un titolo per scaricare i dati:", options=df['name'])
+
+
 if stock_input:
     # Ottieni il ticker selezionato
     ticker_symbol = df[df['name'] == stock_input]['ticker'].values[0]
