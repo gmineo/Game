@@ -87,6 +87,8 @@ try:
 
 
     portfolio_df.dropna(inplace=True)  # Rimuove le righe con NaN
+    portfolio_df['Date'] = pd.to_datetime(portfolio_df['Date'])  # Conversione in datetime
+
 
 
     st.write("Ecco un'anteprima di portfolio_df:")
@@ -105,6 +107,71 @@ try:
     st.write(portfolio_df.head())
     st.write(portfolio_df.columns)
 
+    # Creazione del grafico animato
+fig = go.Figure()
+
+# Aggiunta dei frame per l'animazione
+frames = [
+    go.Frame(
+        data=[
+            go.Scatter(
+                x=portfolio_df['Date'][:k+1],
+                y=portfolio_df['Value'][:k+1],
+                mode='lines+markers',
+                line=dict(color='blue'),
+                name='Portfolio Value'
+            )
+        ],
+        name=str(k)
+    ) for k in range(len(portfolio_df))
+]
+
+# Aggiunta del frame iniziale
+fig.add_trace(
+    go.Scatter(
+        x=portfolio_df['Date'][:1],
+        y=portfolio_df['Value'][:1],
+        mode='lines+markers',
+        line=dict(color='blue'),
+        name='Portfolio Value'
+    )
+)
+
+# Configurazione dei layout per l'animazione
+fig.update(frames=frames)
+fig.update_layout(
+    title="Evoluzione del valore del portafoglio",
+    xaxis_title="Date",
+    yaxis_title="Value",
+    xaxis=dict(showgrid=True),
+    yaxis=dict(showgrid=True),
+    updatemenus=[
+        dict(
+            type="buttons",
+            showactive=False,
+            buttons=[
+                dict(label="Play",
+                     method="animate",
+                     args=[None, dict(frame=dict(duration=500, redraw=True), fromcurrent=True)]),
+                dict(label="Pause",
+                     method="animate",
+                     args=[[None], dict(frame=dict(duration=0, redraw=False), mode="immediate")])
+            ]
+        )
+    ]
+)
+
+# Mostra il grafico con Streamlit
+st.plotly_chart(fig)
+
+
+
+
+
+
+
+
+    
 
 # Create the base figure
     fig = go.Figure()
@@ -113,16 +180,14 @@ try:
     # Create frames for animation
     frames = [
         go.Frame(
-            data=[
-                go.Scatter(x=portfolio_df['Date'][:k+1], y=portfolio_df['Value'][:k+1], mode='lines', name='Value')
-            ],
+            data=[go.Scatter(x=portfolio_df['Date'][:k+1], y=portfolio_df['Value'][:k+1], mode='lines', name='Value')],
             name=str(k)
         ) for k in range(len(portfolio_df))
     ]
 
     st.write("222222222222")
     # Add the first frame manually to ensure the initial display
-    fig.add_trace(go.Scatter(x=portfolio_df['Date'][:1], y=portfolio_df['Value'][:1], mode='lines', name='Value'))
+    fig.add_trace(go.Scatter(x=portfolio_df['Date'][:1], y=portfolio_df['Value'][:1], mode='lines', name=''))
 
     st.write("3333333333333")
 
