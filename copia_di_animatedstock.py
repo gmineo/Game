@@ -109,6 +109,7 @@ try:
 # Create the base figure
     fig = go.Figure()
 
+    st.write("1111111111111")
     # Create frames for animation
     frames = [
         go.Frame(
@@ -119,9 +120,11 @@ try:
         ) for k in range(len(portfolio_df))
     ]
 
+    st.write("222222222222")
     # Add the first frame manually to ensure the initial display
     fig.add_trace(go.Scatter(x=portfolio_df['Date'][:1], y=portfolio_df['Value'][:1], mode='lines', name='Value'))
 
+    st.write("3333333333333")
 
     # Update the layout with frames and animation settings
     fig.update_layout(
