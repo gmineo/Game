@@ -63,11 +63,7 @@ with col1:
     combined_data = pd.DataFrame()
 
 try:
-       for ticker in selected_tickers:
-           stock = yf.Ticker(ticker)
-           hist = stock.history(start=f"{max_ipo_year}-01-01")  # Filtra dall'anno più recente
-           hist['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
-           combined_data = pd.concat([combined_data, hist])
+
     
 
 
