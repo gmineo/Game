@@ -57,7 +57,7 @@ stock_input = st.multiselect("Select stocks:", options=df['name'])
 
 # Process the input string to get a list of stock symbols
 #stock_symbols = [symbol.strip().upper() for symbol in stock_input.split(",")]
-stock_symbols = stock_input(options=df['ticker']
+stock_symbols = stock_input(options=df['ticker'])
 # Create a selection box for choosing which stock to display
 selected_stock = st.selectbox("Select stock to display", stock_symbols)
 
