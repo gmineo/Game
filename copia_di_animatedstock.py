@@ -135,7 +135,7 @@ try:
                                                      "fromcurrent": True, "mode": "immediate"}])])],
         sliders=[{
             "steps": [{"args": [[str(k)], {"frame": {"duration": 20, "redraw": True}, "mode": "immediate"}],
-                       "label": str(hist['Date'][k].date()), "method": "animate"} for k in range(len(hist))],
+                       "label": str(hist['Date'][k].date()), "method": "animate"} for k in range(len(portfolio_df))],
             "transition": {"duration": 0},
             "x": 0.1,
             "len": 0.9
