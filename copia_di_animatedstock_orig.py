@@ -64,7 +64,7 @@ try:
     fig.update_layout(
         xaxis=dict(range=[hist['Date'].min(), hist['Date'].max()], title='Date'),
         yaxis=dict(range=[hist['Close'].min(), hist['Close'].max()], title='Price ($)'),
-        title=f"{selected_stock} Share Prices with {ma1_name} and {ma2_name}",
+        title=f"{selected_stock} Share Prices with",
         updatemenus=[dict(type="buttons", showactive=False,
                           buttons=[dict(label="Play",
                                         method="animate",
