@@ -83,6 +83,9 @@ if stock_input:
         'Portfolio Value': portfolio_values
     }).set_index('Date')
 
+
+
+
     # Mostra i dati del portafoglio
     st.subheader("Valore del portafoglio")
     st.line_chart(portfolio_df)
