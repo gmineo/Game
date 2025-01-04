@@ -111,6 +111,8 @@ st.write(portfolio_df.columns)
 if portfolio_df.index.name == 'Date':
     portfolio_df = portfolio_df.reset_index()
 
+st.write(portfolio_df.head())
+st.write(portfolio_df.columns)
 
 # Grafico animato
 st.subheader("Evoluzione del portafoglio (Grafico animato)")
