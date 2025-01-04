@@ -100,14 +100,6 @@ if stock_input:
 
 
 
-# Debug per portfolio_df
-if 'Portfolio Value' not in portfolio_df.columns:
-    st.error("La colonna 'Portfolio Value' non è presente in portfolio_df.")
-    st.stop()
-
-if portfolio_df.empty:
-    st.error("Il dataframe portfolio_df è vuoto.")
-    st.stop()
 
 
 portfolio_df.index = pd.to_datetime(portfolio_df.index)
