@@ -100,6 +100,10 @@ if portfolio_df.empty:
     st.error("Il dataframe portfolio_df è vuoto.")
     st.stop()
 
+
+portfolio_df.index = pd.to_datetime(portfolio_df.index)
+
+
 st.write("Ecco un'anteprima di portfolio_df:")
 st.dataframe(portfolio_df)
 
