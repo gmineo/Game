@@ -108,12 +108,12 @@ try:
     st.write(portfolio_df.columns)
 
     # Creazione del grafico animato
-fig = go.Figure()
+    fig = go.Figure()
 
 # Aggiunta dei frame per l'animazione
-frames = [
-    go.Frame(
-        data=[
+    frames = [
+        go.Frame(
+         data=[
             go.Scatter(
                 x=portfolio_df['Date'][:k+1],
                 y=portfolio_df['Value'][:k+1],
@@ -121,31 +121,31 @@ frames = [
                 line=dict(color='blue'),
                 name='Portfolio Value'
             )
-        ],
-        name=str(k)
+         ],
+         name=str(k)
     ) for k in range(len(portfolio_df))
 ]
 
 # Aggiunta del frame iniziale
-fig.add_trace(
-    go.Scatter(
+    fig.add_trace(
+     go.Scatter(
         x=portfolio_df['Date'][:1],
         y=portfolio_df['Value'][:1],
         mode='lines+markers',
         line=dict(color='blue'),
         name='Portfolio Value'
-    )
-)
+     )
+ )
 
 # Configurazione dei layout per l'animazione
-fig.update(frames=frames)
-fig.update_layout(
-    title="Evoluzione del valore del portafoglio",
-    xaxis_title="Date",
-    yaxis_title="Value",
-    xaxis=dict(showgrid=True),
-    yaxis=dict(showgrid=True),
-    updatemenus=[
+    fig.update(frames=frames)
+    fig.update_layout(
+      title="Evoluzione del valore del portafoglio",
+      xaxis_title="Date",
+      yaxis_title="Value",
+      xaxis=dict(showgrid=True),
+      yaxis=dict(showgrid=True),
+      updatemenus=[
         dict(
             type="buttons",
             showactive=False,
@@ -158,11 +158,11 @@ fig.update_layout(
                      args=[[None], dict(frame=dict(duration=0, redraw=False), mode="immediate")])
             ]
         )
-    ]
-)
+      ]
+    )
 
 # Mostra il grafico con Streamlit
-st.plotly_chart(fig)
+    st.plotly_chart(fig)
 
 
 
