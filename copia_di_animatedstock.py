@@ -117,21 +117,21 @@ try:
     # Create frames for animation
     frames = [
         go.Frame(
-            data=[go.Scatter(x=portfolio_df['Date'][:k+1], y=portfolio_df['Value'][:k+1], mode='lines', name='Value')],
+            data=[go.Scatter(x=portfolio_df['Date'][:k+1], y=portfolio_df['Value'][:k+1], mode='lines', name="Value")],
             name=str(k)
         ) for k in range(len(portfolio_df))
     ]
 
     st.write("222222222222")
     # Add the first frame manually to ensure the initial display
-    fig.add_trace(go.Scatter(x=portfolio_df['Date'][:1], y=portfolio_df['Value'][:1], mode='lines', name=''))
+    fig.add_trace(go.Scatter(x=portfolio_df['Date'][:1], y=portfolio_df['Value'][:1], mode='lines', name="Value"))
 
     st.write("3333333333333")
 
     # Update the layout with frames and animation settings
     fig.update_layout(
-        xaxis=dict(range=[portfolio_df['Date'].min(), portfolio_df['Date'].max()], title='Date'),
-        yaxis=dict(range=[portfolio_df['Value'].min(), portfolio_df['Value'].max()], title='Price ($)'),
+        xaxis=dict(range=[portfolio_df['Date'].min(), portfolio_df['Date'].max()], title="Date"),
+        yaxis=dict(range=[portfolio_df['Value'].min(), portfolio_df['Value'].max()], title="Price ($)"),
         title="Share Prices",
       
        
