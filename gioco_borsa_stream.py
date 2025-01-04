@@ -100,82 +100,35 @@ frames = [
             name=str(k)
         ) for k in range(len(portfolio_df))
     ]
+# Add the first frame manually to ensure the initial display
+fig.add_trace(go.Scatter(x=portfolio_df['Date'][:1], y=portfolio_df['Portfolio Value'][:1], mode='lines', name='Portfolio Value'))
 
 
 
-# Aggiungi tracce iniziali
-fig.add_trace(go.Scatter(
-    x=portfolio_df.index[:1],
-    y=portfolio_df['Portfolio Value'][:1],
-    mode='lines',
-    name='Portfolio Value'
-))
 
-# Frames per l'animazione
-frames = [
-    go.Frame(
-        data=[
-            go.Scatter(
-                x=portfolio_df.index[:k + 1],
-                y=portfolio_df['Portfolio Value'][:k + 1],
-                mode='lines',
-                name='Portfolio Value'
-            )
-        ],
-        name=str(k)
-    ) for k in range(len(portfolio_df))
-]
+# Update the layout with frames and animation settings
+    fig.update_layout(
+        xaxis=dict(range=[portfolio_df['Date'].min(), portfolio_df['Date'].max()], title='Date'),
+        yaxis=dict(range=[portfolio_df['Close'].min(), portfolio_df['Portfolio Value'].max()], title='Price ($)'),
+        title=f"{selected_stock} Share Prices with ",
+        updatemenus=[dict(type="buttons", showactive=False,
+                          buttons=[dict(label="Play",
+                                        method="animate",
+                                        args=[None, {"frame": {"duration": 20, "redraw": True},
+                                                     "fromcurrent": True, "mode": "immediate"}])])],
+        sliders=[{
+            "steps": [{"args": [[str(k)], {"frame": {"duration": 20, "redraw": True}, "mode": "immediate"}],
+                       "label": str(portfolio_df['Date'][k].date()), "method": "animate"} for k in range(len(portfolio_df))],
+            "transition": {"duration": 0},
+            "x": 0.1,
+            "len": 0.9
+        }]
+    )
 
-fig.frames = frames
+    # Add frames to the figure
+    fig.frames = frames
 
-# Configura layout e animazione
-fig.update_layout(
-    xaxis=dict(title='Date'),
-    yaxis=dict(title='Portfolio Value'),
-    title='Portfolio Value Over Time',
-    updatemenus=[
-        dict(
-            type="buttons",
-            showactive=False,
-            buttons=[
-                dict(
-                    label="Play",
-                    method="animate",
-                    args=[
-                        None,
-                        {"frame": {"duration": 50, "redraw": True}, "fromcurrent": True}
-                    ]
-                ),
-                dict(
-                    label="Pause",
-                    method="animate",
-                    args=[
-                        [None],
-                        {"frame": {"duration": 0, "redraw": False}, "mode": "immediate"}
-                    ]
-                )
-            ]
-        )
-    ],
-    sliders=[
-        dict(
-            steps=[
-                dict(
-                    args=[
-                        [str(k)],
-                        {"frame": {"duration": 50, "redraw": True}, "mode": "immediate"}
-                    ],
-                    label=str(portfolio_df.index[k].date()),
-                    method="animate"
-                ) for k in range(len(portfolio_df))
-            ],
-            transition={"duration": 0},
-            x=0.1,
-            len=0.9
-        )
-    ]
-)
-
-st.plotly_chart(fig)
+    # Display the Plotly figure in Streamlit
+    st.plotly_chart(fig)
 
 
