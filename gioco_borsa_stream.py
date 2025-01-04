@@ -45,16 +45,22 @@ if stock_input:
     selected_tickers = selected_stocks['ticker'].tolist()
     max_ipo_year = selected_stocks['ipo'].max()  # Anno di IPO più recente
 
-    # Scarica i dati storici per ogni titolo selezionato
+        # Scarica i dati storici per ogni titolo selezionato
     combined_data = pd.DataFrame()
     for ticker in selected_tickers:
         stock = yf.Ticker(ticker)
-        hist = stock.history(start=f"{max_ipo_year}-01-01")  # Filtra dall'anno più recente
+        hist = stock.history(period="5y")  # Usa un periodo più recente
         hist['Ticker'] = ticker  # Aggiungi una colonna per identificare il titolo
         combined_data = pd.concat([combined_data, hist])
 
+    # Mostra i dati combinati per debug
+    st.write("Dati combinati scaricati:")
+    st.write(combined_data)
+
     # Riorganizza i dati per costruire il portafoglio
     pivot_data = combined_data.pivot_table(values='Close', index=combined_data.index, columns='Ticker')
+    pivot_data = pivot_data.fillna(method='ffill').dropna()  # Risolvi eventuali valori mancanti
+
     num_stocks = len(selected_tickers)
     weights = [1 / num_stocks] * num_stocks  # Pesi equamente distribuiti
     portfolio_values = pivot_data.dot(weights)  # Calcola il valore giornaliero del portafoglio
@@ -65,16 +71,10 @@ if stock_input:
         'Portfolio Value': portfolio_values
     }).dropna()
 
-    # Converte la colonna 'Date' in datetime
-    portfolio_df['Date'] = pd.to_datetime(portfolio_df['Date'])
-
-    # Mostra i dati del portafoglio
-    st.subheader("Valore del portafoglio")
-    st.line_chart(portfolio_df.set_index('Date'))
-
-    # Mostra i dati per debug
-    st.write("Dati del portafoglio:")
+    # Mostra i dati del portafoglio per debug
+    st.write("Dati del portafoglio per il grafico:")
     st.write(portfolio_df)
+
 
     # Crea il grafico animato
     st.subheader("Evoluzione del portafoglio (Grafico animato)")
