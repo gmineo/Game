@@ -116,11 +116,11 @@ try:
                 go.Scatter(x=portfolio_df['Date'][:k+1], y=portfolio_df['Value'][:k+1], mode='lines', name='Close Price')
             ],
             name=str(k)
-        ) for k in range(len(hist))
+        ) for k in range(len(portfolio_df))
     ]
 
     # Add the first frame manually to ensure the initial display
-    fig.add_trace(go.Scatter(x=portfolio_df['Date'][:1], y=portfolio_df['Value'][:1], mode='lines', name='Close Price'))
+    fig.add_trace(go.Scatter(x=portfolio_df['Date'][:1], y=portfolio_df['Value'][:1], mode='lines', name='Value'))
 
 
     # Update the layout with frames and animation settings
