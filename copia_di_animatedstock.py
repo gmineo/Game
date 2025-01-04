@@ -66,10 +66,6 @@ if stock_input:
     # Inizializza un DataFrame vuoto per raccogliere i dati
     combined_data = pd.DataFrame()
 
-   
-# Riorganizza i dati per costruire il portafoglio
-    pivot_data = combined_data.pivot_table(values='Close', index=combined_data.index, columns='Ticker')
-
 
 
 
@@ -84,7 +80,7 @@ try:
         combined_data = pd.concat([combined_data, hist])
     
 # Riorganizza i dati per costruire il portafoglio
-    pivot_data = combined_data.pivot_table(values='Close', index=combined_data.index, columns='Ticker')
+        pivot_data = combined_data.pivot_table(values='Close', index=combined_data.index, columns='Ticker')
 
 
 
