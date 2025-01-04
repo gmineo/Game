@@ -107,7 +107,7 @@ fig.add_trace(go.Scatter(x=portfolio_df['Date'][:1], y=portfolio_df['Portfolio V
 
 
 # Update the layout with frames and animation settings
-    fig.update_layout(
+fig.update_layout(
         xaxis=dict(range=[portfolio_df['Date'].min(), portfolio_df['Date'].max()], title='Date'),
         yaxis=dict(range=[portfolio_df['Close'].min(), portfolio_df['Portfolio Value'].max()], title='Price ($)'),
         title=f"{selected_stock} Share Prices with ",
