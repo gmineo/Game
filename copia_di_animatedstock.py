@@ -113,7 +113,7 @@ try:
     frames = [
         go.Frame(
             data=[
-                go.Scatter(x=portfolio_df['Date'][:k+1], y=portfolio_df['Value'][:k+1], mode='lines', name='Close Price')
+                go.Scatter(x=portfolio_df['Date'][:k+1], y=portfolio_df['Value'][:k+1], mode='lines', name='Value')
             ],
             name=str(k)
         ) for k in range(len(portfolio_df))
