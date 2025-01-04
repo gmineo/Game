@@ -88,9 +88,22 @@ try:
 
     portfolio_df.dropna(inplace=True)  # Rimuove le righe con NaN
 
-        # Mostra i dati del portafoglio
-    st.subheader("Valore del portafoglio")
-    st.line_chart(portfolio_df)
+
+    st.write("Ecco un'anteprima di portfolio_df:")
+    st.dataframe(portfolio_df)
+
+    st.write(portfolio_df.head())
+    st.write(portfolio_df.columns)
+    if portfolio_df.index.name == 'Date':
+        portfolio_df = portfolio_df.reset_index()
+
+    portfolio_df['Date'] = pd.to_datetime(portfolio_df['Date']).dt.date
+    portfolio_df['Date'] = portfolio_df['Date'].astype(str)
+    st.write(portfolio_df['Date'].head())
+
+
+    st.write(portfolio_df.head())
+    st.write(portfolio_df.columns)
 
 
 # Create the base figure
