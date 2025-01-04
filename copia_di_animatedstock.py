@@ -127,6 +127,7 @@ try:
     fig.update_layout(
         xaxis=dict(range=[portfolio_df['Date'].min(), portfolio_df['Date'].max()], title='Date'),
         yaxis=dict(range=[portfolio_df['Value'].min(), portfolio_df['Value'].max()], title='Price ($)'),
+        title="Share Prices",
       
         updatemenus=[dict(type="buttons", showactive=False,
                           buttons=[dict(label="Play",
