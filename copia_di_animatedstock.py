@@ -54,30 +54,20 @@ col1, = st.columns(1)
 with col1:
     stock_input = st.multiselect("Select stocks:", options=df['name'])
     period = st.selectbox("Select time period", ["1mo", "3mo", "6mo", "1y", "2y", "5y"], index=3)
-
-
-
-   if stock_input:
-      # Filtra i dati corrispondenti ai titoli selezionati
-      selected_stocks = df[df['name'].isin(stock_input)]
-      selected_tickers = selected_stocks['ticker'].tolist()
-      max_ipo_year = selected_stocks['ipo'].max()  # Anno di IPO più recente
+# Filtra i dati corrispondenti ai titoli selezionati
+    selected_stocks = df[df['name'].isin(stock_input)]
+    selected_tickers = selected_stocks['ticker'].tolist()
+    max_ipo_year = selected_stocks['ipo'].max()  # Anno di IPO più recente
 
     # Inizializza un DataFrame vuoto per raccogliere i dati
-      combined_data = pd.DataFrame()
-
-
-
+    combined_data = pd.DataFrame()
 
 try:
    for ticker in selected_tickers:
-        stock = yf.Ticker(ticker)
-        hist = stock.history(start=f"{max_ipo_year}-01-01")  # Filtra dall'anno più recente
-     
-        
-
-        hist['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
-        combined_data = pd.concat([combined_data, hist])
+       stock = yf.Ticker(ticker)
+       hist = stock.history(start=f"{max_ipo_year}-01-01")  # Filtra dall'anno più recente
+       hist['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
+       combined_data = pd.concat([combined_data, hist])
     
 # Riorganizza i dati per costruire il portafoglio
 pivot_data = combined_data.pivot_table(values='Close', index=combined_data.index, columns='Ticker')
