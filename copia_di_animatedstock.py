@@ -120,7 +120,7 @@ try:
     ]
 
     # Add the first frame manually to ensure the initial display
-    fig.add_trace(go.Scatter(x=hist['Date'][:1], y=hist['Close'][:1], mode='lines', name='Close Price'))
+    fig.add_trace(go.Scatter(x=portfolio_df['Date'][:1], y=portfolio_df['Value'][:1], mode='lines', name='Close Price'))
 
 
     # Update the layout with frames and animation settings
