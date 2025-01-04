@@ -57,11 +57,9 @@ with col1:
 
 
 
-# Process the input string to get a list of stock symbols
-stock_symbols = [symbol.strip().upper() for symbol in stock_input.split(",")]
-
-# Create a selection box for choosing which stock to display
-selected_stock = st.selectbox("Select stock to display", stock_symbols)
+if stock_input:
+    # Filtra i dati corrispondenti ai titoli selezionati
+    selected_stocks = df[df['name'].isin(stock_input)]
 
 
 
