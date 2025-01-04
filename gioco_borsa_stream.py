@@ -87,6 +87,24 @@ if stock_input:
     st.subheader("Valore del portafoglio")
     st.line_chart(portfolio_df)
 
+
+
+
+
+# Debug per portfolio_df
+if 'Portfolio Value' not in portfolio_df.columns:
+    st.error("La colonna 'Portfolio Value' non è presente in portfolio_df.")
+    st.stop()
+
+if portfolio_df.empty:
+    st.error("Il dataframe portfolio_df è vuoto.")
+    st.stop()
+
+st.write("Ecco un'anteprima di portfolio_df:")
+st.dataframe(portfolio_df)
+
+
+
 # Grafico animato
 st.subheader("Evoluzione del portafoglio (Grafico animato)")
 fig = go.Figure()
