@@ -32,8 +32,8 @@ selected_stock = st.selectbox("Select stock to display", stock_symbols)
 
 try:
     # Fetch stock data for the selected symbol
-    stock = yf.Ticker(selected_stock,perido='max')
-    hist = stock.history(period=period)
+    stock = yf.Ticker(selected_stock)
+    hist = stock.history(period='max')
 
     # Reset index to get 'Date' as a column
     hist.reset_index(inplace=True)
