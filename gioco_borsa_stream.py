@@ -106,6 +106,8 @@ if stock_input:
 st.write("Ecco un'anteprima di portfolio_df:")
 st.dataframe(portfolio_df)
 
+st.write(portfolio_df.head())
+st.write(portfolio_df.columns)
 
 
 # Grafico animato
