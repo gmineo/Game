@@ -72,11 +72,7 @@ try:
 # Riorganizza i dati per costruire il portafoglio
        pivot_data = combined_data.pivot_table(values='Close', index=combined_data.index, columns='Ticker')
 
-
-
-
-
-    # Create the base figure
+# Create the base figure
     fig = go.Figure()
 
     # Create frames for animation
