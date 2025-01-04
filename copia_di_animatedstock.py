@@ -16,18 +16,12 @@ import plotly.graph_objects as go
 st.title("Stock Prices with Animation and Custom EMAs")
 
 # Create input fields for stock symbols and moving averages
-col1, col2, col3 = st.columns(3)
+col1, = st.columns()
 with col1:
     stock_input = st.text_input("Enter stock symbols (comma-separated)", "META, AAPL, GOOGL")
     period = st.selectbox("Select time period", ["1mo", "3mo", "6mo", "1y", "2y", "5y"], index=3)
 
-with col2:
-    ma1_period = st.number_input("First Moving Average Period (max value =200)", min_value=1, max_value=200, value=20)
-    ma1_type = st.selectbox("First MA Type", ["EMA", "SMA"], index=0, key='ma1_type')
 
-with col3:
-    ma2_period = st.number_input("Second Moving Average Period (max value =200)", min_value=1, max_value=200, value=50)
-    ma2_type = st.selectbox("Second MA Type", ["EMA", "SMA"], index=0, key='ma2_type')
 
 # Process the input string to get a list of stock symbols
 stock_symbols = [symbol.strip().upper() for symbol in stock_input.split(",")]
