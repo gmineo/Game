@@ -28,12 +28,12 @@ stock_symbols = [symbol.strip().upper() for symbol in stock_input.split(",")]
 
 # Create a selection box for choosing which stock to display
 selected_stock = st.selectbox("Select stock to display", stock_symbols)
-
+period='max'
 
 try:
     # Fetch stock data for the selected symbol
     stock = yf.Ticker(selected_stock)
-    hist = stock.history(period='max')
+    hist = stock.history(period=period)
 
     # Reset index to get 'Date' as a column
     hist.reset_index(inplace=True)
