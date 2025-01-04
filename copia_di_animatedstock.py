@@ -171,53 +171,6 @@ st.plotly_chart(fig)
 
 
 
-    
-
-# Create the base figure
-    fig = go.Figure()
-
-    st.write("1111111111111")
-    # Create frames for animation
-    frames = [
-        go.Frame(
-            data=[go.Scatter(x=portfolio_df['Date'][:k+1], y=portfolio_df['Value'][:k+1], mode='lines', name='Value')],
-            name=str(k)
-        ) for k in range(len(portfolio_df))
-    ]
-
-    st.write("222222222222")
-    # Add the first frame manually to ensure the initial display
-    fig.add_trace(go.Scatter(x=portfolio_df['Date'][:1], y=portfolio_df['Value'][:1], mode='lines', name=''))
-
-    st.write("3333333333333")
-
-    # Update the layout with frames and animation settings
-    fig.update_layout(
-        xaxis=dict(range=[portfolio_df['Date'].min(), portfolio_df['Date'].max()], title='Date'),
-        yaxis=dict(range=[portfolio_df['Value'].min(), portfolio_df['Value'].max()], title='Price ($)'),
-        title="Share Prices",
-      
-       
-        updatemenus=[dict(type="buttons", showactive=False,
-                          buttons=[dict(label="Play",
-                                        method="animate",
-                                        args=[None, {"frame": {"duration": 20, "redraw": True},
-                                                     "fromcurrent": True, "mode": "immediate"}])])],
-        sliders=[{
-            "steps": [{"args": [[str(k)], {"frame": {"duration": 20, "redraw": True}, "mode": "immediate"}],
-                       "label": str(portfolio_df['Date'][k].date()), "method": "animate"} for k in range(len(portfolio_df))],
-            "transition": {"duration": 0},
-            "x": 0.1,
-            "len": 0.9
-        }]
-    )
-
-    st.write("4444444444")
-    # Add frames to the figure
-    fig.frames = frames
-
-    # Display the Plotly figure in Streamlit
-    st.plotly_chart(fig)
 
    
 
