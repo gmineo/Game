@@ -56,7 +56,8 @@ try:
     hist[ma1_name] = calculate_ma(hist['Close'], ma1_period, ma1_type)
     hist[ma2_name] = calculate_ma(hist['Close'], ma2_period, ma2_type)
 
-    st.dataframe(hist)
+    st.write("Ecco un'anteprima di portfolio_df:")
+    st.dataframe(portfolio_df)
 
     # Create the base figure
     fig = go.Figure()
