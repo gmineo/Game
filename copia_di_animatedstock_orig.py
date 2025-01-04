@@ -60,7 +60,7 @@ max_ipo_year = selected_stocks['ipo'].max() +1 # Anno di IPO più recente
 
 
 try:
-    for ticker in selected_tickers:
+    for ticker in selected_stock:
     # Fetch stock data for the selected symbol
         stock = yf.Ticker(selected_stock)
         hist = stock.history(start=f"{max_ipo_year}-01-01") 
