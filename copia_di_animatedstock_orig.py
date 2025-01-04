@@ -33,7 +33,7 @@ selected_stock = st.selectbox("Select stock to display", stock_symbols)
 try:
     # Fetch stock data for the selected symbol
     stock = yf.Ticker(selected_stock)
-    hist = stock.history()
+    hist = stock.history(period="5y")
 
     # Reset index to get 'Date' as a column
     hist.reset_index(inplace=True)
