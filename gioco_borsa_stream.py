@@ -64,6 +64,9 @@ if stock_input:
     for ticker in selected_tickers:
         stock = yf.Ticker(ticker)
         hist = stock.history(start=f"{max_ipo_year}-01-01")  # Filtra dall'anno più recente
+        hist.fillna(method='ffill', inplace=True)  # Riempie i NaN con il valore precedente
+        hist.dropna(inplace=True)  # Rimuove le righe con NaN
+
         hist['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
         combined_data = pd.concat([combined_data, hist])
 
