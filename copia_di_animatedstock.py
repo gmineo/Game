@@ -57,7 +57,7 @@ with col1:
 # Filtra i dati corrispondenti ai titoli selezionati
     selected_stocks = df[df['name'].isin(stock_input)]
     selected_tickers = selected_stocks['ticker'].tolist()
-    max_ipo_year = selected_stocks['ipo'].max()  # Anno di IPO più recente
+    max_ipo_year = selected_stocks['ipo'].max() +1 # Anno di IPO più recente
 
     # Inizializza un DataFrame vuoto per raccogliere i dati
     combined_data = pd.DataFrame()
