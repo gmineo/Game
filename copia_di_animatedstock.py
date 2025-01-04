@@ -88,6 +88,10 @@ try:
 
     portfolio_df.dropna(inplace=True)  # Rimuove le righe con NaN
 
+        # Mostra i dati del portafoglio
+    st.subheader("Valore del portafoglio")
+    st.line_chart(portfolio_df)
+
 
 # Create the base figure
     fig = go.Figure()
