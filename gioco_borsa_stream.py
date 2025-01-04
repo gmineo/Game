@@ -91,6 +91,18 @@ if stock_input:
 st.subheader("Evoluzione del portafoglio (Grafico animato)")
 fig = go.Figure()
 
+# Create frames for animation
+    frames = [
+        go.Frame(
+            data=[
+                go.Scatter(x=portfolio_df['Date'][:k+1], y=portfolio_df['Portfolio Value'][:k+1], mode='lines', name='Portfolio Value'),
+            ],
+            name=str(k)
+        ) for k in range(len(portfolio_df))
+    ]
+
+
+
 # Aggiungi tracce iniziali
 fig.add_trace(go.Scatter(
     x=portfolio_df.index[:1],
