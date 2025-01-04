@@ -59,7 +59,7 @@ stock_input = st.multiselect("Select stocks:", options=df['name'])
 #stock_symbols = [symbol.strip().upper() for symbol in stock_input.split(",")]
 
 selected_stock = df[df['name'].isin(stock_input)]
-selected_tickers = selected_stocks['ticker'].tolist()
+selected_tickers = selected_stocks['ticker']
 selected_stock = st.selectbox("Select stock to display", selected_tickers)
 
 #orig
