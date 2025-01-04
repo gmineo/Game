@@ -106,7 +106,7 @@ frames = [
     ) for k in range(len(portfolio_df))
 ]
 
-
+fig.frames = frames
 # Add the first frame manually to ensure the initial display
 fig.add_trace(go.Scatter(x=portfolio_df['Date'][:1], y=portfolio_df['Portfolio Value'][:1], mode='lines', name='Portfolio Value'))
 
