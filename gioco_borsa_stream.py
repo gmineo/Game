@@ -108,6 +108,8 @@ st.dataframe(portfolio_df)
 
 st.write(portfolio_df.head())
 st.write(portfolio_df.columns)
+if portfolio_df.index.name == 'Date':
+    portfolio_df = portfolio_df.reset_index()
 
 
 # Grafico animato
