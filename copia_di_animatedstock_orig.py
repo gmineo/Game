@@ -17,7 +17,7 @@ st.title("Stock Prices with Animation")
 
 # Create input fields for stock symbols and moving averages
 
-stock_input = st.text_input("Enter stock symbols (comma-separated)", "META")
+stock_input = st.text_input("Enter stock symbols (comma-separated)")
 
 
 
