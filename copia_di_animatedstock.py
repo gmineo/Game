@@ -77,7 +77,7 @@ try:
 
 
     # Create the base figure
-    fig = go.Figure()
+fig = go.Figure()
 
     # Create frames for animation
     frames = [
