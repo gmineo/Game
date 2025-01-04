@@ -109,7 +109,6 @@ st.dataframe(portfolio_df)
 st.subheader("Evoluzione del portafoglio (Grafico animato)")
 fig = go.Figure()
 
-# Frames per l'animazione
 frames = [
     go.Frame(
         data=[
