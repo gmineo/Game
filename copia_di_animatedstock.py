@@ -63,21 +63,21 @@ with col1:
     combined_data = pd.DataFrame()
 
 try:
-   for ticker in selected_tickers:
-       stock = yf.Ticker(ticker)
-       hist = stock.history(start=f"{max_ipo_year}-01-01")  # Filtra dall'anno più recente
-       hist['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
-       combined_data = pd.concat([combined_data, hist])
+       for ticker in selected_tickers:
+           stock = yf.Ticker(ticker)
+           hist = stock.history(start=f"{max_ipo_year}-01-01")  # Filtra dall'anno più recente
+           hist['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
+           combined_data = pd.concat([combined_data, hist])
     
 # Riorganizza i dati per costruire il portafoglio
-   pivot_data = combined_data.pivot_table(values='Close', index=combined_data.index, columns='Ticker')
+       pivot_data = combined_data.pivot_table(values='Close', index=combined_data.index, columns='Ticker')
 
 
 
 
 
     # Create the base figure
-fig = go.Figure()
+    fig = go.Figure()
 
     # Create frames for animation
     frames = [
