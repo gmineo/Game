@@ -49,7 +49,7 @@ df = pd.DataFrame(data)
 # Create input fields for stock symbols and moving averages
 
 # Menu a tendina per selezionare più titoli
-stock_input = st.multiselect("Select stocks:", options=df['ticker'])
+stock_input = st.multiselect("Select stocks:", options=df['name'])
 
 
 
@@ -57,7 +57,7 @@ stock_input = st.multiselect("Select stocks:", options=df['ticker'])
 
 # Process the input string to get a list of stock symbols
 #stock_symbols = [symbol.strip().upper() for symbol in stock_input.split(",")]
-stock_symbols = stock_input
+stock_symbols = stock_input(options=df['ticker']
 # Create a selection box for choosing which stock to display
 selected_stock = st.selectbox("Select stock to display", stock_symbols)
 
