@@ -52,7 +52,7 @@ df = pd.DataFrame(data)
 # Create input fields for stock symbols and moving averages
 col1, = st.columns(1)
 with col1:
-    stock_input = st.multiselect("Select stocks:", options=df['name'])
+    stock_input = st.multiselect("Select stocks:", options=df['name'], "Meta, Apple")
     period = st.selectbox("Select time period", ["1mo", "3mo", "6mo", "1y", "2y", "5y"], index=3)
 
 
