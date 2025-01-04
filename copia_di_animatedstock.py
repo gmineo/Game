@@ -125,9 +125,9 @@ try:
 
     # Update the layout with frames and animation settings
     fig.update_layout(
-        xaxis=dict(range=[hist['Date'].min(), hist['Date'].max()], title='Date'),
-        yaxis=dict(range=[hist['Close'].min(), hist['Close'].max()], title='Price ($)'),
-        title=f"{selected_stock} Share Prices with",
+        xaxis=dict(range=[portfolio_df['Date'].min(), portfolio_df['Date'].max()], title='Date'),
+        yaxis=dict(range=[portfolio_df['Value'].min(), portfolio_df['Value'].max()], title='Price ($)'),
+      
         updatemenus=[dict(type="buttons", showactive=False,
                           buttons=[dict(label="Play",
                                         method="animate",
