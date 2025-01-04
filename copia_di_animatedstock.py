@@ -53,7 +53,7 @@ df = pd.DataFrame(data)
 col1, = st.columns(1)
 with col1:
     stock_input = st.multiselect("Select stocks:", options=df['name'])
-    period = st.selectbox("Select time period", ["1mo", "3mo", "6mo", "1y", "2y", "5y"], index=3)
+   
 # Filtra i dati corrispondenti ai titoli selezionati
     selected_stocks = df[df['name'].isin(stock_input)]
     selected_tickers = selected_stocks['ticker'].tolist()
