@@ -16,18 +16,13 @@ import plotly.graph_objects as go
 st.title("Stock Prices with Animation and Custom EMAs")
 
 # Create input fields for stock symbols and moving averages
-col1, col2, col3 = st.columns(3)
+col1= st.columns(1)
 with col1:
     stock_input = st.text_input("Enter stock symbols (comma-separated)", "META, AAPL, GOOGL")
     period = st.selectbox("Select time period", ["1mo", "3mo", "6mo", "1y", "2y", "5y"], index=3)
 
-with col2:
-    ma1_period = st.number_input("First Moving Average Period (max value =200)", min_value=1, max_value=200, value=20)
-    ma1_type = st.selectbox("First MA Type", ["EMA", "SMA"], index=0, key='ma1_type')
 
-with col3:
-    ma2_period = st.number_input("Second Moving Average Period (max value =200)", min_value=1, max_value=200, value=50)
-    ma2_type = st.selectbox("Second MA Type", ["EMA", "SMA"], index=0, key='ma2_type')
+
 
 # Process the input string to get a list of stock symbols
 stock_symbols = [symbol.strip().upper() for symbol in stock_input.split(",")]
@@ -35,11 +30,6 @@ stock_symbols = [symbol.strip().upper() for symbol in stock_input.split(",")]
 # Create a selection box for choosing which stock to display
 selected_stock = st.selectbox("Select stock to display", stock_symbols)
 
-def calculate_ma(data, period, ma_type='EMA'):
-    if ma_type == 'EMA':
-        return data.ewm(span=period, adjust=False).mean()
-    else:  # SMA
-        return data.rolling(window=period).mean()
 
 try:
     # Fetch stock data for the selected symbol
@@ -49,14 +39,9 @@ try:
     # Reset index to get 'Date' as a column
     hist.reset_index(inplace=True)
 
-    # Calculate selected moving averages
-    ma1_name = f"{ma1_type}{ma1_period}"
-    ma2_name = f"{ma2_type}{ma2_period}"
 
-    hist[ma1_name] = calculate_ma(hist['Close'], ma1_period, ma1_type)
-    hist[ma2_name] = calculate_ma(hist['Close'], ma2_period, ma2_type)
 
-    st.write("Ecco un'anteprima di portfolio_df:")
+    st.write("Ecco un'anteprima di hist:")
     st.dataframe(hist)
 
     # Create the base figure
@@ -66,11 +51,7 @@ try:
     frames = [
         go.Frame(
             data=[
-                go.Scatter(x=hist['Date'][:k+1], y=hist['Close'][:k+1], mode='lines', name='Close Price'),
-                go.Scatter(x=hist['Date'][:k+1], y=hist[ma1_name][:k+1], mode='lines',
-                          name=f'{ma1_name}', line=dict(dash='dot')),
-                go.Scatter(x=hist['Date'][:k+1], y=hist[ma2_name][:k+1], mode='lines',
-                          name=f'{ma2_name}', line=dict(dash='dash'))
+                go.Scatter(x=hist['Date'][:k+1], y=hist['Close'][:k+1], mode='lines', name='Close Price')
             ],
             name=str(k)
         ) for k in range(len(hist))
@@ -78,10 +59,7 @@ try:
 
     # Add the first frame manually to ensure the initial display
     fig.add_trace(go.Scatter(x=hist['Date'][:1], y=hist['Close'][:1], mode='lines', name='Close Price'))
-    fig.add_trace(go.Scatter(x=hist['Date'][:1], y=hist[ma1_name][:1], mode='lines',
-                            name=f'{ma1_name}', line=dict(dash='dot')))
-    fig.add_trace(go.Scatter(x=hist['Date'][:1], y=hist[ma2_name][:1], mode='lines',
-                            name=f'{ma2_name}', line=dict(dash='dash')))
+    
 
     # Update the layout with frames and animation settings
     fig.update_layout(
