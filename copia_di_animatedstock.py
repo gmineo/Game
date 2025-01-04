@@ -66,16 +66,7 @@ if stock_input:
     # Inizializza un DataFrame vuoto per raccogliere i dati
     combined_data = pd.DataFrame()
 
-    # Scarica i dati storici per ogni titolo selezionato
-    for ticker in selected_tickers:
-        stock = yf.Ticker(ticker)
-        hist = stock.history(start=f"{max_ipo_year}-01-01")  # Filtra dall'anno più recente
-     
-        
-
-        hist['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
-        combined_data = pd.concat([combined_data, hist])
-
+   
 # Riorganizza i dati per costruire il portafoglio
     pivot_data = combined_data.pivot_table(values='Close', index=combined_data.index, columns='Ticker')
 
@@ -83,12 +74,18 @@ if stock_input:
 
 
 try:
-    # Fetch stock data for the selected symbol
-    stock = yf.Ticker(selected_stock)
-    hist = stock.history(period=period)
+   for ticker in selected_tickers:
+        stock = yf.Ticker(ticker)
+        hist = stock.history(start=f"{max_ipo_year}-01-01")  # Filtra dall'anno più recente
+     
+        
 
-    # Reset index to get 'Date' as a column
-    hist.reset_index(inplace=True)
+        hist['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
+        combined_data = pd.concat([combined_data, hist])
+    
+# Riorganizza i dati per costruire il portafoglio
+    pivot_data = combined_data.pivot_table(values='Close', index=combined_data.index, columns='Ticker')
+
 
 
 
