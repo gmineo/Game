@@ -57,7 +57,7 @@ with col1:
 
 
 
-if stock_input:
+  if stock_input:
     # Filtra i dati corrispondenti ai titoli selezionati
     selected_stocks = df[df['name'].isin(stock_input)]
     selected_tickers = selected_stocks['ticker'].tolist()
