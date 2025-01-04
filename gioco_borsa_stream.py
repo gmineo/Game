@@ -92,7 +92,7 @@ st.subheader("Evoluzione del portafoglio (Grafico animato)")
 fig = go.Figure()
 
 # Create frames for animation
-    frames = [
+frames = [
         go.Frame(
             data=[
                 go.Scatter(x=portfolio_df['Date'][:k+1], y=portfolio_df['Portfolio Value'][:k+1], mode='lines', name='Portfolio Value'),
