@@ -132,6 +132,7 @@ try:
         yaxis=dict(range=[portfolio_df['Value'].min(), portfolio_df['Value'].max()], title='Price ($)'),
         title="Share Prices",
       
+        st.write("4444444444")
         updatemenus=[dict(type="buttons", showactive=False,
                           buttons=[dict(label="Play",
                                         method="animate",
@@ -146,6 +147,7 @@ try:
         }]
     )
 
+    st.write("5555555555")
     # Add frames to the figure
     fig.frames = frames
 
