@@ -138,5 +138,5 @@ try:
    
 
 except Exception as e:
-    st.error(f"Error fetching data for {selected_stock}. Please check the stock symbol and try again.")
+    st.error(f"Error fetching data for . Please check the stock symbol and try again.")
     st.error(f"Error details: {str(e)}")
