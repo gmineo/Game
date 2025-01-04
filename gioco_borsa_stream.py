@@ -168,11 +168,10 @@ fig.update_layout(
     }]
 )
 
+# Add frames to the figure
 fig.frames = frames
 
 # Mostra il grafico in Streamlit
 st.plotly_chart(fig)
 
 
-# Visualizza il grafico animato in Streamlit
-st.plotly_chart(fig)
