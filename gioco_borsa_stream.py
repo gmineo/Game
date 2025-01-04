@@ -126,9 +126,9 @@ fig.update_layout(
     )
 
     # Add frames to the figure
-    fig.frames = frames
+fig.frames = frames
 
     # Display the Plotly figure in Streamlit
-    st.plotly_chart(fig)
+st.plotly_chart(fig)
 
 
