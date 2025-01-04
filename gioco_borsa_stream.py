@@ -111,6 +111,11 @@ st.write(portfolio_df.columns)
 if portfolio_df.index.name == 'Date':
     portfolio_df = portfolio_df.reset_index()
 
+portfolio_df['Date'] = pd.to_datetime(portfolio_df['Date']).dt.date
+portfolio_df['Date'] = portfolio_df['Date'].astype(str)
+st.write(portfolio_df['Date'].head())
+
+
 st.write(portfolio_df.head())
 st.write(portfolio_df.columns)
 
@@ -118,12 +123,11 @@ st.write(portfolio_df.columns)
 st.subheader("Evoluzione del portafoglio (Grafico animato)")
 fig = go.Figure()
 
-# Creazione dei frame per l'animazione
 frames = [
     go.Frame(
         data=[
             go.Scatter(
-                x=portfolio_df['Date'][:k + 1],  # Usa la colonna 'Date'
+                x=portfolio_df['Date'][:k + 1], 
                 y=portfolio_df['Portfolio Value'][:k + 1],
                 mode='lines',
                 name='Portfolio Value'
@@ -133,59 +137,39 @@ frames = [
     ) for k in range(len(portfolio_df))
 ]
 
-# Aggiungi il primo frame manualmente per l'inizializzazione
-fig.add_trace(
-    go.Scatter(
-        x=portfolio_df['Date'][:1], 
-        y=portfolio_df['Portfolio Value'][:1], 
-        mode='lines', 
-        name='Portfolio Value'
-    )
-)
+# Aggiungi il primo frame manualmente
+fig.add_trace(go.Scatter(
+    x=portfolio_df['Date'][:1], 
+    y=portfolio_df['Portfolio Value'][:1],
+    mode='lines', 
+    name='Portfolio Value'
+))
 
-# Configura il layout con animazione
+# Layout e animazione
 fig.update_layout(
     xaxis=dict(range=[portfolio_df['Date'].min(), portfolio_df['Date'].max()], title='Date'),
     yaxis=dict(range=[portfolio_df['Portfolio Value'].min(), portfolio_df['Portfolio Value'].max()], title='Portfolio Value ($)'),
-    title="Evoluzione del valore del portafoglio",
+    title="Evoluzione del Portafoglio",
     updatemenus=[
-        dict(
-            type="buttons",
-            showactive=False,
-            buttons=[
-                dict(
-                    label="Play",
-                    method="animate",
-                    args=[
-                        None,
-                        {
-                            "frame": {"duration": 50, "redraw": True},
-                            "fromcurrent": True,
-                            "mode": "immediate"
-                        }
-                    ]
-                )
-            ]
-        )
+        dict(type="buttons", showactive=False,
+             buttons=[dict(label="Play",
+                           method="animate",
+                           args=[None, {"frame": {"duration": 20, "redraw": True}, "fromcurrent": True, "mode": "immediate"}])])
     ],
-    sliders=[
-        {
-            "steps": [
-                {
-                    "args": [[str(k)], {"frame": {"duration": 50, "redraw": True}, "mode": "immediate"}],
-                    "label": str(portfolio_df['Date'].iloc[k].date()),
-                    "method": "animate"
-                } for k in range(len(portfolio_df))
-            ],
-            "transition": {"duration": 0},
-            "x": 0.1,
-            "len": 0.9
-        }
-    ]
+    sliders=[{
+        "steps": [{"args": [[str(k)], {"frame": {"duration": 20, "redraw": True}, "mode": "immediate"}],
+                   "label": str(portfolio_df['Date'].iloc[k]), "method": "animate"} for k in range(len(portfolio_df))],
+        "transition": {"duration": 0},
+        "x": 0.1,
+        "len": 0.9
+    }]
 )
 
-# Aggiungi i frame alla figura
 fig.frames = frames
+
+# Mostra il grafico in Streamlit
+st.plotly_chart(fig)
+
 
 # Visualizza il grafico animato in Streamlit
 st.plotly_chart(fig)
