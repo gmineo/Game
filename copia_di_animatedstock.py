@@ -69,7 +69,24 @@ try:
            hist['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
            combined_data = pd.concat([combined_data, hist])
 
-    
+    # Riorganizza i dati per costruire il portafoglio
+    pivot_data = combined_data.pivot_table(values='Close', index=combined_data.index, columns='Ticker')
+
+    # Calcola i pesi equamente distribuiti
+    num_stocks = len(selected_tickers)
+    weights = [1 / num_stocks] * num_stocks
+
+    # Calcola il valore giornaliero del portafoglio
+    portfolio_values = pivot_data.dot(weights)
+
+    # Crea un DataFrame per il portafoglio
+    portfolio_df = pd.DataFrame({
+        'Date': portfolio_values.index,
+        'Portfolio Value': portfolio_values
+    }).set_index('Date')
+
+
+    portfolio_df.dropna(inplace=True)  # Rimuove le righe con NaN
 
 
 # Create the base figure
