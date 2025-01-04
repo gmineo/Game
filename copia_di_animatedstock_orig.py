@@ -13,12 +13,12 @@ import pandas as pd
 import plotly.graph_objects as go
 
 # Set the title of the Streamlit app
-st.title("Stock Prices with Animation and Custom EMAs")
+st.title("Stock Prices with Animation")
 
 # Create input fields for stock symbols and moving averages
 
 stock_input = st.text_input("Enter stock symbols (comma-separated)", "META, AAPL, GOOGL")
-period = st.selectbox("Select time period", ["1mo", "3mo", "6mo", "1y", "2y", "5y"], index=3)
+
 
 
 
@@ -32,7 +32,7 @@ selected_stock = st.selectbox("Select stock to display", stock_symbols)
 
 try:
     # Fetch stock data for the selected symbol
-    stock = yf.Ticker(selected_stock)
+    stock = yf.Ticker(selected_stock,perido='max')
     hist = stock.history(period=period)
 
     # Reset index to get 'Date' as a column
