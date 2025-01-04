@@ -13,7 +13,7 @@ import pandas as pd
 import plotly.graph_objects as go
 
 # Set the title of the Streamlit app
-st.title("Stock Prices with Animation and Custom EMAs")
+st.title("Try to beat the market")
 
 # Create input fields for stock symbols and moving averages
 col1, = st.columns(1)
