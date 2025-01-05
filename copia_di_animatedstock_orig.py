@@ -41,6 +41,8 @@ data = {
 
 # Converte i dati in un DataFrame
 df = pd.DataFrame(data)
+# Inizializza un DataFrame vuoto per raccogliere i dati
+combined_data = pd.DataFrame()
 
 
 
