@@ -63,8 +63,8 @@ try:
     for ticker in selected_stock:
     # Fetch stock data for the selected symbol
         stock = yf.Ticker(selected_stock)
-        hist = stock.history(start="2019-02-01", interval="1wk") 
-        #hist = stock.history() 
+        #hist = stock.history(start="2019-02-01", interval="1wk") #funzionante, prob non riesce a fre grafici con troppi punti
+        hist = stock.history(period="max",interval="1wk" ) 
         
       
 
