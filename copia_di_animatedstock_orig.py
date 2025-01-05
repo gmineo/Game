@@ -65,7 +65,7 @@ try:
         stock = yf.Ticker(selected_stock)
         #hist = stock.history(start="2019-02-01", interval="1wk") #funzionante, prob non riesce a fre grafici con troppi punti
         #hist = stock.history(period="max",interval="1wk" ) #funzionante
-        hist = stock.history(period=f"max_ipo_year"-01-01,interval="1wk" )
+        hist = stock.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
         
       
 
