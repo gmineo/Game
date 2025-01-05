@@ -117,6 +117,9 @@ try:
     if portfolio_df.index.name == 'Date':
         portfolio_df = portfolio_df.reset_index()
 
+    portfolio_df['Date'] = pd.to_datetime(portfolio_df['Date']).dt.date
+    portfolio_df['Date'] = portfolio_df['Date'].astype(str)
+    st.write(portfolio_df['Date'].head())
 
     hist=portfolio_df
     # Create the base figure
