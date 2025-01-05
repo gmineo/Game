@@ -57,7 +57,7 @@ selected_stock = st.selectbox("Select stock to display", selected_tickers)
 
 max_ipo_year = selected_stocks['ipo'].max()  # Anno di IPO più recente
 
-
+st.dataframe(max_ipo_year)
 
 try:
     for ticker in selected_stock:
