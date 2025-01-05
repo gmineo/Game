@@ -86,6 +86,39 @@ try:
     st.write("Ecco un'anteprima di combined_data:")
     st.dataframe(combined_data)
 
+
+    # Riorganizza i dati per costruire il portafoglio
+    pivot_data = combined_data.pivot_table(values='Close', index=combined_data.index, columns='Ticker')
+
+    # Calcola i pesi equamente distribuiti
+    num_stocks = len(selected_tickers)
+    weights = [1 / num_stocks] * num_stocks
+
+    # Calcola il valore giornaliero del portafoglio
+    portfolio_values = pivot_data.dot(weights)
+
+    # Crea un DataFrame per il portafoglio
+    portfolio_df = pd.DataFrame({
+        'Date': portfolio_values.index,
+        'Value': portfolio_values
+    }).set_index('Date')
+
+
+    portfolio_df.dropna(inplace=True)  # Rimuove le righe con NaN
+    portfolio_df['Date'] = pd.to_datetime(portfolio_df['Date'])  # Conversione in datetime
+
+
+
+    st.write("Ecco un'anteprima di portfolio_df:")
+    st.dataframe(portfolio_df)
+
+    st.write(portfolio_df.head())
+    st.write(portfolio_df.columns)
+    if portfolio_df.index.name == 'Date':
+        portfolio_df = portfolio_df.reset_index()
+
+
+    hist=portfolio_df
     # Create the base figure
     fig = go.Figure()
 
