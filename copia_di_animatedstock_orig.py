@@ -68,7 +68,7 @@ try:
         #hist = stock.history(start="2019-02-01", interval="1wk") #funzionante, prob non riesce a fre grafici con troppi punti
         #hist = stock.history(period="max",interval="1wk" ) #funzionante
         hist = stock.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
-        #hist['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
+        hist['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
         combined_data = pd.concat([combined_data, hist])
 
       
