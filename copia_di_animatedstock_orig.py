@@ -90,6 +90,9 @@ try:
     # Riorganizza i dati per costruire il portafoglio
     pivot_data = combined_data.pivot_table(values='Close', index=combined_data.index, columns='Ticker')
 
+    st.write("Ecco un'anteprima di pivot_data:")
+    st.dataframe(pivot_data)
+
     # Calcola i pesi equamente distribuiti
     num_stocks = len(selected_tickers)
     weights = [1 / num_stocks] * num_stocks
