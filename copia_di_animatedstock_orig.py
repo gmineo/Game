@@ -64,7 +64,7 @@ try:
     # Fetch stock data for the selected symbol
         stock = yf.Ticker(selected_stock)
         #hist = stock.history(start="1981-01-01") 
-        hist = stock.history(period="max") 
+        hist = stock.history() 
         
       
 
