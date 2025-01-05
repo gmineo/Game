@@ -62,7 +62,7 @@ max_ipo_year = selected_stocks['ipo'].max()+1  # Anno di IPO più recente
 max_ipo_year
 
 try:
-    for ticker in selected_stock:
+    for ticker in selected_tickers:
     # Fetch stock data for the selected symbol
         stock = yf.Ticker(ticker)
         #hist = stock.history(start="2019-02-01", interval="1wk") #funzionante, prob non riesce a fre grafici con troppi punti
