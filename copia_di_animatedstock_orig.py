@@ -55,7 +55,7 @@ selected_stocks = df[df['name'].isin(stock_input)]
 selected_tickers = selected_stocks['ticker']
 selected_stock = st.selectbox("Select stock to display", selected_tickers)
 
-max_ipo_year = selected_stocks['ipo'].max() +1 # Anno di IPO più recente
+max_ipo_year = selected_stocks['ipo'].max()  # Anno di IPO più recente
 
 
 
