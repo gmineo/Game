@@ -63,7 +63,7 @@ try:
     for ticker in selected_stock:
     # Fetch stock data for the selected symbol
         stock = yf.Ticker(selected_stock)
-        hist = stock.history(start="2024-01-01") 
+        hist = stock.history(start="2020-02-01") 
         #hist = stock.history() 
         
       
