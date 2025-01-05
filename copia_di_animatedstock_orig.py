@@ -55,7 +55,7 @@ selected_stocks = df[df['name'].isin(stock_input)]
 selected_tickers = selected_stocks['ticker']
 selected_stock = st.selectbox("Select stock to display", selected_tickers)
 
-max_ipo_year = selected_stocks['ipo'].max()  # Anno di IPO più recente
+max_ipo_year = selected_stocks['ipo'].max()+1  # Anno di IPO più recente
 
 max_ipo_year
 
@@ -63,7 +63,8 @@ try:
     for ticker in selected_stock:
     # Fetch stock data for the selected symbol
         stock = yf.Ticker(selected_stock)
-        hist = stock.history(start=f"{max_ipo_year}-01-01") 
+        #hist = stock.history(start=f"{max_ipo_year}-01-01") 
+        hist = stock.history(1980) 
 
     # Reset index to get 'Date' as a column
     hist.reset_index(inplace=True)
