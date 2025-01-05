@@ -102,10 +102,10 @@ try:
         updatemenus=[dict(type="buttons", showactive=False,
                           buttons=[dict(label="Play",
                                         method="animate",
-                                        args=[None, {"frame": {"duration": 20, "redraw": True},
+                                        args=[None, {"frame": {"duration": 1, "redraw": True},
                                                      "fromcurrent": True, "mode": "immediate"}])])],
         sliders=[{
-            "steps": [{"args": [[str(k)], {"frame": {"duration": 20, "redraw": True}, "mode": "immediate"}],
+            "steps": [{"args": [[str(k)], {"frame": {"duration": 1, "redraw": True}, "mode": "immediate"}],
                        "label": str(hist['Date'][k].date()), "method": "animate"} for k in range(len(hist))],
             "transition": {"duration": 0},
             "x": 0.1,
