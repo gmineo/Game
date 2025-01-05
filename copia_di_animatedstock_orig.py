@@ -100,7 +100,7 @@ try:
     # Crea un DataFrame per il portafoglio
     portfolio_df = pd.DataFrame({
         'Date': portfolio_values.index,
-        'Value': portfolio_values
+        'Close': portfolio_values
     }).set_index('Date')
 
 
