@@ -63,8 +63,8 @@ try:
     for ticker in selected_stock:
     # Fetch stock data for the selected symbol
         stock = yf.Ticker(selected_stock)
-        #hist = stock.history(start=f"{max_ipo_year}-01-01") 
-        hist = stock.history(start=max_ipo_year) 
+        hist = stock.history(start=f"{max_ipo_year}-01-01") 
+      
 
     # Reset index to get 'Date' as a column
     hist.reset_index(inplace=True)
