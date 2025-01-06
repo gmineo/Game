@@ -65,6 +65,9 @@ for ticker in selected_tickers:
         hist1 = stock.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
         hist1['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
         combined_data = pd.concat([combined_data, hist1])
+    
+# Resetta l'indice per spostare la colonna 'Date' nell'asse principale
+combined_data.reset_index(inplace=True)
 
 st.write("Ecco un'anteprima di combined_data:")
 st.dataframe(combined_data)
