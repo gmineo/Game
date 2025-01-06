@@ -116,7 +116,10 @@ st.dataframe(portfolio_cumulative_returns)
 
 
 hist=portfolio_cumulative_returns
-hist = pd.DataFrame(hist, columns=['Date', 'Close'])
+
+st.write("Tipo di hist:", type(hist))
+
+hist = pd.DataFrame(hist)
 st.write("Ecco un'anteprima di hist:")
 st.dataframe(hist)
 
