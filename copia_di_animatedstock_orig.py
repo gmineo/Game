@@ -51,9 +51,10 @@ stock_input = st.multiselect("Select stocks:", options=df['name'])
 
 selected_stocks = df[df['name'].isin(stock_input)]
 selected_tickers = selected_stocks['ticker']
+selected_stock = selected_tickers
 
 
-max_ipo_year = selected_tickers['ipo'].max()+1  # Anno di IPO più recente
+max_ipo_year = selected_stock['ipo'].max()+1  # Anno di IPO più recente
 
 max_ipo_year
 
@@ -66,28 +67,8 @@ for ticker in selected_tickers:
         hist1['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
         combined_data = pd.concat([combined_data, hist1])
 
-
-      
-
-    # Reset index to get 'Date' as a column
-hist1.reset_index(inplace=True)
-combined_data.reset_index(inplace=True)
-
-
-
-
-st.write("Ecco un'anteprima di hist1:")
-st.dataframe(hist1)
-
 st.write("Ecco un'anteprima di combined_data:")
 st.dataframe(combined_data)
-
-
-    # Riorganizza i dati per costruire il portafoglio
-pivot_data = combined_data.pivot_table(values='Close', index=combined_data.reset.index, columns='Ticker')
-
-st.write("Ecco un'anteprima di pivot_data:")
-st.dataframe(pivot_data)
 
    # Calcola il numero di titoli
 num_tickers = len(selected_tickers)
