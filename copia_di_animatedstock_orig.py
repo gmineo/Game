@@ -117,7 +117,7 @@ st.dataframe(portfolio_cumulative_returns)
 
 hist=portfolio_cumulative_returns
 
-st.write("Tipo di hist:", type(hist))
+
 
 hist = pd.DataFrame(hist)
 
@@ -125,15 +125,13 @@ st.write("Ecco un'anteprima di hist:")
 st.dataframe(hist)
 
 # Rinomina la colonna della Series convertita (se necessario)
-hist.rename(columns={hist.columns[0]: "Close"}, inplace=True)
+hist.rename(columns={hist.columns[1]: "Close"}, inplace=True)
 # Reimposta l'indice e aggiungi la colonna "Date"
 hist.reset_index(inplace=True)
 hist.rename(columns={"index": "Date"}, inplace=True)
 
-st.write("Colonne di hist:")
-st.write(hist.columns)
-
-hist.rename(columns={'0': 'Close'}, inplace=True)
+st.write("Ecco un'anteprima di hist:")
+st.dataframe(hist)
 
 
 
