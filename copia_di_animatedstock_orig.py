@@ -47,16 +47,15 @@ combined_data = pd.DataFrame()
 # Create input fields for stock symbols and moving averages
 
 # Menu a tendina per selezionare più titoli
-stock_input = st.multiselect("Select stocks:", options=df['name'])
 
+stock_input = st.multiselect("Select stocks:", options=df['name'])
 selected_stocks = df[df['name'].isin(stock_input)]
 selected_tickers = selected_stocks['ticker']
 selected_stock = selected_tickers
 
+max_ipo_year = selected_stocks['ipo'].max()+1  # Anno di IPO più recente
 
-max_ipo_year = selected_stock['ipo'].max()+1  # Anno di IPO più recente
-
-max_ipo_year
+st.write(max_ipo_year)
 
 for ticker in selected_tickers:
     # Fetch stock data for the selected symbol
