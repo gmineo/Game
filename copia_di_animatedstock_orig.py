@@ -124,8 +124,6 @@ hist = pd.DataFrame(hist)
 st.write("Ecco un'anteprima di hist:")
 st.dataframe(hist)
 
-# Rinomina la colonna della Series convertita (se necessario)
-hist.rename(columns={hist.columns[1]: "Close"}, inplace=True)
 # Reimposta l'indice e aggiungi la colonna "Date"
 hist.reset_index(inplace=True)
 # Rinomina le colonne in "Date" e "Close"
