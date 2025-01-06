@@ -63,6 +63,8 @@ for ticker in selected_tickers:
         #hist = stock.history(start="2019-02-01", interval="1wk") #funzionante, prob non riesce a fre grafici con troppi punti
         #hist = stock.history(period="max",interval="1wk" ) #funzionante
         hist1 = stock.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
+
+        hist1.reset_index(inplace=True)
         hist1['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
         combined_data = pd.concat([combined_data, hist1])
     
@@ -118,9 +120,7 @@ hist=portfolio_cumulative_returns
 st.write("Ecco un'anteprima di hist:")
 st.dataframe(hist)
 
-# Resetta l'indice per spostare la colonna 'Date' nell'asse principale
-hist.reset_index(inplace=True)
-hist['Date'] = pd.to_datetime(hist['Date'])
+
 
     # Create the base figure
 fig = go.Figure()
