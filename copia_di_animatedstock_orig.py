@@ -111,6 +111,9 @@ st.dataframe(portfolio_cumulative_returns)
 
 
 hist=portfolio_cumulative_returns
+st.write("Ecco un'anteprima di hist:")
+st.dataframe(hist)
+
     # Create the base figure
 fig = go.Figure()
 
