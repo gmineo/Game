@@ -120,6 +120,12 @@ hist=portfolio_cumulative_returns
 st.write("Ecco un'anteprima di hist:")
 st.dataframe(hist)
 
+st.write("Tipo di hist:", type(hist))
+if isinstance(hist, pd.DataFrame):
+    st.write("Colonne di hist:", hist.columns)
+else:
+    st.write("Errore: 'hist' non è un DataFrame.")
+
 st.write("Colonne di hist:")
 st.write(hist.columns)
 
