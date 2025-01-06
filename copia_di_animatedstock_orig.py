@@ -114,9 +114,12 @@ st.dataframe(portfolio_cumulative_returns)
 
 
 hist=portfolio_cumulative_returns
+
 st.write("Ecco un'anteprima di hist:")
 st.dataframe(hist)
 
+# Resetta l'indice per spostare la colonna 'Date' nell'asse principale
+hist.reset_index(inplace=True)
 hist['Date'] = pd.to_datetime(hist['Date'])
 
     # Create the base figure
