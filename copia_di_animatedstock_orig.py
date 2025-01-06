@@ -116,10 +116,13 @@ st.dataframe(portfolio_cumulative_returns)
 
 
 hist=portfolio_cumulative_returns
-hist.rename(columns={0: 'Close'}, inplace=True)
 
 st.write("Ecco un'anteprima di hist:")
 st.dataframe(hist)
+
+hist.rename(columns={0: 'Close'}, inplace=True)
+
+
 
 
 
