@@ -118,7 +118,7 @@ fig = go.Figure()
 frames = [
         go.Frame(
             data=[
-                go.Scatter(x=hist['Date'][:k+1], y=hist['Close'][:k+1], mode='lines', name='Close Price')
+                go.Scatter(x=hist['Date'][:k+1], y=hist['0'][:k+1], mode='lines', name='Close Price')
             ],
             name=str(k)
         ) for k in range(len(hist))
