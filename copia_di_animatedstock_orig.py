@@ -83,7 +83,6 @@ returns = combined_data.pivot_table(
     index='Date',
     columns='Ticker',
     values='Return',
-    aggfunc='mean'  # In caso di duplicati, calcola la media dei ritorni
 )
 
 
