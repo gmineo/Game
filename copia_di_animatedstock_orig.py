@@ -75,10 +75,14 @@ num_tickers = len(selected_tickers)
 # Calcola i ritorni settimanali per ogni ticker
 combined_data['Return'] = combined_data.groupby('Ticker')['Close'].pct_change()
 
+st.write("Ecco un'anteprima di combined_data con return:")
 st.dataframe(combined_data)
 
 # Pivot dei dati per ottenere una matrice di ritorni
 returns = combined_data.pivot(index='Date', columns='Ticker', values='Return')
+
+st.write("Ecco un'anteprima di returns:")
+st.dataframe(returns)
 
 # Calcola i ritorni cumulativi
 cumulative_returns = (1 + returns).cumprod()
