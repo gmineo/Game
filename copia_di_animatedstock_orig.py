@@ -114,6 +114,8 @@ hist=portfolio_cumulative_returns
 st.write("Ecco un'anteprima di hist:")
 st.dataframe(hist)
 
+hist['Date'] = pd.to_datetime(hist['Date'])
+
     # Create the base figure
 fig = go.Figure()
 
