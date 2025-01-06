@@ -120,6 +120,9 @@ hist=portfolio_cumulative_returns
 st.write("Ecco un'anteprima di hist:")
 st.dataframe(hist)
 
+st.write("Colonne di hist:")
+st.write(hist.columns)
+
 hist.rename(columns={'0': 'Close'}, inplace=True)
 
 
