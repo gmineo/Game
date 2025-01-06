@@ -128,7 +128,8 @@ st.dataframe(hist)
 hist.rename(columns={hist.columns[1]: "Close"}, inplace=True)
 # Reimposta l'indice e aggiungi la colonna "Date"
 hist.reset_index(inplace=True)
-hist.rename(columns={"index": "Date"}, inplace=True)
+# Rinomina le colonne in "Date" e "Close"
+hist.columns = ["Date", "Close"]
 
 st.write("Ecco un'anteprima di hist:")
 st.dataframe(hist)
