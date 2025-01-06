@@ -61,75 +61,69 @@ max_ipo_year = selected_stocks['ipo'].max()+1  # Anno di IPO più recente
 
 max_ipo_year
 
-try:
-    for ticker in selected_tickers:
+for ticker in selected_tickers:
     # Fetch stock data for the selected symbol
         stock = yf.Ticker(ticker)
         #hist = stock.history(start="2019-02-01", interval="1wk") #funzionante, prob non riesce a fre grafici con troppi punti
         #hist = stock.history(period="max",interval="1wk" ) #funzionante
-        hist = stock.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
-        hist['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
-        combined_data = pd.concat([combined_data, hist])
+        hist1 = stock.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
+        hist1['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
+        combined_data = pd.concat([combined_data, hist1])
+
 
       
 
     # Reset index to get 'Date' as a column
-    hist.reset_index(inplace=True)
-    combined_data.reset_index(inplace=True)
+hist1.reset_index(inplace=True)
+combined_data.reset_index(inplace=True)
 
 
 
 
-    st.write("Ecco un'anteprima di hist:")
-    st.dataframe(hist)
+st.write("Ecco un'anteprima di hist:")
+st.dataframe(hist)
 
-    st.write("Ecco un'anteprima di combined_data:")
-    st.dataframe(combined_data)
+st.write("Ecco un'anteprima di combined_data:")
+st.dataframe(combined_data)
 
 
     # Riorganizza i dati per costruire il portafoglio
-    pivot_data = combined_data.pivot_table(values='Close', index=combined_data.reset.index, columns='Ticker')
+pivot_data = combined_data.pivot_table(values='Close', index=combined_data.reset.index, columns='Ticker')
 
-    st.write("Ecco un'anteprima di pivot_data:")
-    st.dataframe(pivot_data)
+st.write("Ecco un'anteprima di pivot_data:")
+st.dataframe(pivot_data)
 
-    # Calcola i pesi equamente distribuiti
-    num_stocks = len(selected_tickers)
-    weights = [1 / num_stocks] * num_stocks
+   # Calcola il numero di titoli
+num_tickers = len(selected_tickers)
 
-    # Calcola il valore giornaliero del portafoglio
-    portfolio_values = pivot_data.dot(weights)
+# Calcola i ritorni settimanali per ogni ticker
+combined_data['Return'] = combined_data.groupby('Ticker')['Close'].pct_change()
 
-    # Crea un DataFrame per il portafoglio
-    portfolio_df = pd.DataFrame({
-        'Date': portfolio_values.index,
-        'Close': portfolio_values
-    }).set_index('Date')
+# Pivot dei dati per ottenere una matrice di ritorni
+returns = combined_data.pivot(index='Date', columns='Ticker', values='Return')
 
+# Calcola i ritorni cumulativi
+cumulative_returns = (1 + returns).cumprod()
 
-    portfolio_df.dropna(inplace=True)  # Rimuove le righe con NaN
-    portfolio_df['Date'] = pd.to_datetime(portfolio_df['Date'])  # Conversione in datetime
-
+# Portafoglio equally weighted
+portfolio_weights = [1/num_tickers] * num_tickers
+portfolio_cumulative_returns = (cumulative_returns * portfolio_weights).sum(axis=1)
 
 
-    st.write("Ecco un'anteprima di portfolio_df:")
-    st.dataframe(portfolio_df)
 
-    st.write(portfolio_df.head())
-    st.write(portfolio_df.columns)
-    if portfolio_df.index.name == 'Date':
-        portfolio_df = portfolio_df.reset_index()
+st.write("Ecco un'anteprima di portfolio_cumulative_returns:")
+st.dataframe(portfolio_cumulative_returns)
 
-    portfolio_df['Date'] = pd.to_datetime(portfolio_df['Date']).dt.date
-    portfolio_df['Date'] = portfolio_df['Date'].astype(str)
-    st.write(portfolio_df['Date'].head())
+   
 
-    hist=portfolio_df
+
+
+hist=portfolio_cumulative_returns
     # Create the base figure
-    fig = go.Figure()
+fig = go.Figure()
 
     # Create frames for animation
-    frames = [
+frames = [
         go.Frame(
             data=[
                 go.Scatter(x=hist['Date'][:k+1], y=hist['Close'][:k+1], mode='lines', name='Close Price')
@@ -139,11 +133,11 @@ try:
     ]
 
     # Add the first frame manually to ensure the initial display
-    fig.add_trace(go.Scatter(x=hist['Date'][:1], y=hist['Close'][:1], mode='lines', name='Close Price'))
+fig.add_trace(go.Scatter(x=hist['Date'][:1], y=hist['Close'][:1], mode='lines', name='Close Price'))
     
 
     # Update the layout with frames and animation settings
-    fig.update_layout(
+fig.update_layout(
         xaxis=dict(range=[hist['Date'].min(), hist['Date'].max()], title='Date'),
         yaxis=dict(range=[hist['Close'].min(), hist['Close'].max()], title='Price ($)'),
         title=f"{selected_stock} Share Prices with",
@@ -162,12 +156,9 @@ try:
     )
 
     # Add frames to the figure
-    fig.frames = frames
+fig.frames = frames
 
     # Display the Plotly figure in Streamlit
-    st.plotly_chart(fig)
+st.plotly_chart(fig)
 
-   
-except Exception as e:
-    st.error(f"Error fetching data for {selected_stock}. Please check the stock symbol and try again.")
-    st.error(f"Error details: {str(e)}")
+
