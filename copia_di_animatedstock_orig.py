@@ -78,8 +78,19 @@ combined_data['Return'] = combined_data.groupby('Ticker')['Close'].pct_change()
 st.write("Ecco un'anteprima di combined_data con return:")
 st.dataframe(combined_data)
 
+
+returns = combined_data.pivot_table(
+    index='Date',
+    columns='Ticker',
+    values='Return',
+    aggfunc='mean'  # In caso di duplicati, calcola la media dei ritorni
+)
+
+
+
+
 # Pivot dei dati per ottenere una matrice di ritorni
-returns = combined_data.pivot(index='Date', columns='Ticker', values='Return')
+#returns = combined_data.pivot(index='Date', columns='Ticker', values='Return')
 
 st.write("Ecco un'anteprima di returns:")
 st.dataframe(returns)
