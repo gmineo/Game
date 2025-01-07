@@ -71,6 +71,10 @@ for ticker in selected_tickers:
 # Resetta l'indice per spostare la colonna 'Date' nell'asse principale
 combined_data.reset_index(inplace=True)
 
+sp = yf.Ticker('^GSPC')
+sp500=sp.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
+
+
 st.write("Ecco un'anteprima di combined_data:")
 st.dataframe(combined_data)
 
