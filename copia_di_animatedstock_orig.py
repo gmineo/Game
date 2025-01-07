@@ -157,7 +157,7 @@ fig.add_trace(go.Scatter(x=hist['Date'][:1], y=hist['Close'][:1], mode='lines', 
 fig.update_layout(
         xaxis=dict(range=[hist['Date'].min(), hist['Date'].max()], title='Date'),
         yaxis=dict(range=[hist['Close'].min(), hist['Close'].max()], title='Perf %'),
-        title=f"{selected_tickers} Share Prices with",
+        title=f"{stock_input} Share Prices with",
         updatemenus=[dict(type="buttons", showactive=False,
                           buttons=[dict(label="Play",
                                         method="animate",
