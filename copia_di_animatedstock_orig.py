@@ -29,7 +29,7 @@ data = {
         'Boeing', '3M', 'Altria Group'
     ],
     'ticker': [
-        'AAPL', 'GOOG', 'MSFT', 'AMZN', 'NVDA', 'META', 'TSLA', 'BRK-B', 'LLY', 'V',
+        'AAPL', 'GOOG', 'MSFT', 'AMZN', 'NVDA', 'META', 'TSLA', 'BRK-A', 'LLY', 'V',
         'AVGO', 'JPM', 'UNH', 'WMT', 'MA', 'XOM', 'JNJ', 'PG', 'HD', 'COST', 'CVX',
         'BAC', 'PFE', 'DIS', 'PYPL', 'VZ', 'INTC', 'KO', 'WFC', 'T', 'GE', 'ORCL',
         'C', 'IBM', 'PM', 'CSCO', 'MRK', 'PEP', 'AIG', 'AMGN', 'UPS', 'BMY', 'QCOM',
