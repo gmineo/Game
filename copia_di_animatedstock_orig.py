@@ -170,7 +170,7 @@ fig.add_trace(go.Scatter(x=sp500_data['Date'][:1], y=sp500_data['Percent Change'
     # Update the layout with frames and animation settings
 fig.update_layout(
         xaxis=dict(range=[hist['Date'].min(), hist['Date'].max()], title='Date'),
-        yaxis=dict(range=[hist['Close'].min(), hist['Close'].max()], title='Perf %'),
+        yaxis=dict(range=[sp500_data['Close'].min(), sp500_data['Close'].max()], title='Perf %'),
         title=f"{stock_input} Share Prices with",
         updatemenus=[dict(type="buttons", showactive=False,
                           buttons=[dict(label="Play",
