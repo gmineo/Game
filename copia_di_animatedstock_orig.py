@@ -143,20 +143,20 @@ fig = go.Figure()
 frames = [
         go.Frame(
             data=[
-                go.Scatter(x=hist['Date'][:k+1], y=hist['Close'][:k+1], mode='lines', name='xxxxxxxxxxxx')
+                go.Scatter(x=hist['Date'][:k+1], y=hist['Close'][:k+1], mode='lines', name='Close Price')
             ],
             name=str(k)
         ) for k in range(len(hist))
     ]
 
     # Add the first frame manually to ensure the initial display
-fig.add_trace(go.Scatter(x=hist['Date'][:1], y=hist['Close'][:1], mode='lines', name='Close Price'))
+fig.add_trace(go.Scatter(x=hist['Date'][:1], y=hist['Close'][:1], mode='lines', name='Perf %'))
     
 
     # Update the layout with frames and animation settings
 fig.update_layout(
         xaxis=dict(range=[hist['Date'].min(), hist['Date'].max()], title='Date'),
-        yaxis=dict(range=[hist['Close'].min(), hist['Close'].max()], title='Price ($)'),
+        yaxis=dict(range=[hist['Close'].min(), hist['Close'].max()], title='Perf %'),
         title=f"{selected_stock} Share Prices with",
         updatemenus=[dict(type="buttons", showactive=False,
                           buttons=[dict(label="Play",
