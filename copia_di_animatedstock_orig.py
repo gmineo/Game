@@ -73,7 +73,7 @@ combined_data.reset_index(inplace=True)
 
 sp = yf.Ticker('^GSPC')
 sp500_data=sp.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
-sp500_data = data[['Close']]  # Mantieni solo la colonna 'Close'
+sp500_data = sp500_data[['Close']]  # Mantieni solo la colonna 'Close'
 # Calcola la variazione percentuale per l'S&P 500
 sp500_data['Percent Change'] = (sp500_data['Close'] - sp500_data['Close'][0]) / sp500_data['Close'][0] * 100
 st.write("Ecco un'anteprima di sp500_data:")
