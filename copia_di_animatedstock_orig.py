@@ -151,7 +151,9 @@ fig = go.Figure()
 frames = [
         go.Frame(
             data=[
-                go.Scatter(x=hist['Date'][:k+1], y=hist['Close'][:k+1], mode='lines', name='Close Price')
+                go.Scatter(x=hist['Date'][:k+1], y=hist['Close'][:k+1], mode='lines', name='Close Price'),
+                go.Scatter(x=sp500_data['Date'][:k+1], y=sp500_data['Percent Change'][:k+1], mode='lines',
+                          name='SP500', line=dict(dash='dot')),
             ],
             name=str(k)
         ) for k in range(len(hist))
@@ -159,7 +161,7 @@ frames = [
 
     # Add the first frame manually to ensure the initial display
 fig.add_trace(go.Scatter(x=hist['Date'][:1], y=hist['Close'][:1], mode='lines', name='Perf %'))
-    
+fig.add_trace(go.Scatter(x=sp500_data['Date'][:1], y=sp500_data['Percent Change'][:1], mode='lines', name='SP500', line=dict(dash='dot')))    
 
     # Update the layout with frames and animation settings
 fig.update_layout(
