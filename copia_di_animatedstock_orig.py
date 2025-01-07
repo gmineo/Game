@@ -176,7 +176,7 @@ fig.update_layout(
         #xaxis=dict(range=[hist['Date'].min(), hist['Date'].max()], title='Date'),
         #yaxis=dict(range=[sp500_data['Percent Change'].min(), sp500_data['Percent Change'].max()], title='Perf %'),
         xaxis=dict(range=[hist['Date'].min(), hist['Date'].max()], title='Date'),
-        yaxis=dict(range[(y_min, y_max9], title='Perf %'),
+        yaxis=dict(range[y_min, y_max], title='Perf %'),
     
         title=f"{stock_input} Equally weighted portfolio vs S&P500 index",
         updatemenus=[dict(type="buttons", showactive=False,
