@@ -170,6 +170,8 @@ fig.add_trace(go.Scatter(x=sp500_data['Date'][:1], y=sp500_data['Percent Change'
 # Calcola il range per l'asse x e y
 y_min = min(hist['Close'].min(), sp500_data['Percent Change'].min())
 y_max = max(hist['Close'].max(), sp500_data['Percent Change'].max())
+y_min
+y_max
 
     # Update the layout with frames and animation settings
 fig.update_layout(
