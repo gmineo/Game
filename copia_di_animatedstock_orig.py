@@ -78,6 +78,10 @@ sp500_data = sp500_data[['Close']]  # Mantieni solo la colonna 'Close'
 sp500_data['Percent Change'] = (sp500_data['Close'] - sp500_data['Close'][0]) / sp500_data['Close'][0] * 100
 st.write("Ecco un'anteprima di sp500_data:")
 st.dataframe(sp500_data)
+# Reimposta l'indice e aggiungi la colonna "Date"
+sp500_data.reset_index(inplace=True)
+st.write("Ecco un'anteprima di sp500_data_indexed:")
+st.dataframe(sp500_data)
 
 st.write("Ecco un'anteprima di combined_data:")
 st.dataframe(combined_data)
