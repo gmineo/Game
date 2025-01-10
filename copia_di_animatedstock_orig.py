@@ -63,7 +63,7 @@ for ticker in selected_tickers:
         #hist = stock.history(start="2019-02-01", interval="1wk") #funzionante, prob non riesce a fre grafici con troppi punti
         #hist = stock.history(period="max",interval="1wk" ) #funzionante
         #hist1 = stock.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
-        hist1 = stock.history(start="2024-01-01",end="2024-12-31"interval="1wk" )
+        hist1 = stock.history(start="2024-01-01",end="2024-12-31",interval="1wk" )
 
         hist1.reset_index(inplace=True)
         hist1['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
