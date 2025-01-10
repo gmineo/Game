@@ -116,19 +116,9 @@ returns = combined_data.pivot_table(
 
 st.write("Ecco un'anteprima di returns:")
 st.dataframe(returns)
-portfolio_weights = [1/num_tickers]
 
-# Calcolare i rendimenti del portafoglio
-cumulative_returns = sum(returns[ticker] * portfolio_weights for ticker in selected_tickers)
-    
-    # Calcolare i rendimenti cumulativi per ogni ticker e per il portafoglio
-for ticker in selected_tickers:
-        cumulative_returns[f'{ticker}_Cum_Return'] = (1 + cumulative_returns[ticker]).cumprod() - 1
-    
-cumulative_returns['Portfolio_Cum_Return'] = (1 + cumulative_returns['Portfolio_Return']).cumprod() - 1
 
-st.write("Ecco un'anteprima di cumulative_returns:")
-st.dataframe(cumulative_returns)
+
 
 
 
