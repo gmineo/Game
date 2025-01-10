@@ -93,7 +93,7 @@ st.dataframe(combined_data)
 num_tickers = len(selected_tickers)
 st.write(num_tickers)
 # Calcola i ritorni settimanali per ogni ticker
-combined_data['Return'] = combined_data.groupby('Ticker')['Close'].pct_change()
+combined_data['Return'] = combined_data.groupby('Ticker')['Close'].pct_change()*100
 
 st.write("Ecco un'anteprima di combined_data con return:")
 st.dataframe(combined_data)
@@ -121,7 +121,7 @@ st.write("Ecco un'anteprima di cumulative_returns:")
 st.write(cumulative_returns)
 # Portafoglio equally weighted
 portfolio_weights = [1/num_tickers]*num_tickers
-portfolio_cumulative_returns = (cumulative_returns * portfolio_weights*100).sum(axis=1)
+portfolio_cumulative_returns = (cumulative_returns * portfolio_weights).sum(axis=1)
 
 st.write("Ecco un'anteprima di portfolio_weights:")
 st.write(portfolio_weights)
