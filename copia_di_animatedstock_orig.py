@@ -100,6 +100,12 @@ st.write("Ecco un'anteprima di combined_data con return:")
 st.dataframe(combined_data)
 
 
+
+
+
+
+
+
 returns = combined_data.pivot_table(
     index='Date',
     columns='Ticker',
@@ -108,12 +114,28 @@ returns = combined_data.pivot_table(
 
 
 
-
-# Pivot dei dati per ottenere una matrice di ritorni
-#returns = combined_data.pivot(index='Date', columns='Ticker', values='Return')
-
 st.write("Ecco un'anteprima di returns:")
 st.dataframe(returns)
+portfolio_weights = [1/num_tickers]
+
+# Calcolare i rendimenti del portafoglio
+cumulative_returns = sum(returns[ticker] * portfolio_weights for ticker in selected_tickers)
+    
+    # Calcolare i rendimenti cumulativi per ogni ticker e per il portafoglio
+for ticker in selected_tickers:
+        cumulative_returns[f'{ticker}_Cum_Return'] = (1 + cumulative_returns[ticker]).cumprod() - 1
+    
+cumulative_returns['Portfolio_Cum_Return'] = (1 + cumulative_returns['Portfolio_Return']).cumprod() - 1
+
+st.write("Ecco un'anteprima di cumulative_returns:")
+st.dataframe(cumulative_returns)
+
+
+
+
+
+
+
 
 # Calcola i ritorni cumulativi
 cumulative_returns = (1+returns).cumprod()
