@@ -115,7 +115,7 @@ st.write("Ecco un'anteprima di returns:")
 st.dataframe(returns)
 
 # Calcola i ritorni cumulativi
-cumulative_returns = (1 + returns).cumprod()
+cumulative_returns = (returns).cumprod()
 
 st.write("Ecco un'anteprima di cumulative_returns:")
 st.write(cumulative_returns)
