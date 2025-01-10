@@ -53,7 +53,8 @@ selected_stocks = df[df['name'].isin(stock_input)]
 selected_tickers = selected_stocks['ticker']
 selected_stock = selected_tickers
 
-max_ipo_year = selected_stocks['ipo'].max()+1  # Anno di IPO più recente
+#max_ipo_year = selected_stocks['ipo'].max()+1  # Anno di IPO più recente
+max_ipo_year = 2024  # Anno di IPO più recente
 
 st.write(max_ipo_year)
 
@@ -62,8 +63,8 @@ for ticker in selected_tickers:
         stock = yf.Ticker(ticker)
         #hist = stock.history(start="2019-02-01", interval="1wk") #funzionante, prob non riesce a fre grafici con troppi punti
         #hist = stock.history(period="max",interval="1wk" ) #funzionante
-        #hist1 = stock.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
-        hist1 = stock.history(start="2024-01-01",end="2024-12-31",interval="1wk" )
+        hist1 = stock.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
+       
 
         hist1.reset_index(inplace=True)
         hist1['Ticker'] = ticker  # Aggiunge una colonna per identificare il titolo
