@@ -116,7 +116,12 @@ st.write("Ecco un'anteprima di returns:")
 st.dataframe(returns)
 
 # Calcola i ritorni cumulativi
-cumulative_returns = (1+returns).cumprod()
+#cumulative_returns = (1+returns).cumprod()
+cumulative_returns = returns.groupby('Ticker')['Close'].apply(lambda x: (x / x.iloc[0]) - 1)
+
+
+
+
 
 st.write("Ecco un'anteprima di cumulative_returns:")
 st.write(cumulative_returns)
