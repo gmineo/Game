@@ -116,10 +116,14 @@ st.dataframe(returns)
 
 # Calcola i ritorni cumulativi
 cumulative_returns = (1 + returns).cumprod()
+
+st.write("Ecco un'anteprima di cumulative_returns:")
 st.write(cumulative_returns)
 # Portafoglio equally weighted
 portfolio_weights = [1/num_tickers]
 portfolio_cumulative_returns = (cumulative_returns * portfolio_weights).sum(axis=1)
+
+st.write("Ecco un'anteprima di portfolio_weights:")
 st.write(portfolio_weights)
 
 
