@@ -118,7 +118,7 @@ st.dataframe(returns)
 cumulative_returns = (1 + returns).cumprod()
 
 # Portafoglio equally weighted
-portfolio_weights = [1/num_tickers] * num_tickers
+portfolio_weights = [1/num_tickers]
 portfolio_cumulative_returns = (cumulative_returns * portfolio_weights).sum(axis=1)
 
 
