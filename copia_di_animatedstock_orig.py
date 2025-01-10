@@ -78,7 +78,7 @@ sp500_data=sp.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
 sp500_data = sp500_data[['Close']]  # Mantieni solo la colonna 'Close'
 # Calcola la variazione percentuale per l'S&P 500
 sp500_data['Percent Change'] = (sp500_data['Close'] - sp500_data['Close'][0]) / sp500_data['Close'][0] * 100
-#sp500_data['Percent Change'] = sp500_data['Close'].pct_change()
+
 st.write("Ecco un'anteprima di sp500_data:")
 st.dataframe(sp500_data)
 # Reimposta l'indice e aggiungi la colonna "Date"
@@ -91,7 +91,7 @@ st.dataframe(combined_data)
 
    # Calcola il numero di titoli
 num_tickers = len(selected_tickers)
-
+st.write(num_tickers)
 # Calcola i ritorni settimanali per ogni ticker
 combined_data['Return'] = combined_data.groupby('Ticker')['Close'].pct_change()
 
@@ -116,11 +116,11 @@ st.dataframe(returns)
 
 # Calcola i ritorni cumulativi
 cumulative_returns = (1 + returns).cumprod()
-
+st.write(cumulative_returns)
 # Portafoglio equally weighted
 portfolio_weights = [1/num_tickers]
 portfolio_cumulative_returns = (cumulative_returns * portfolio_weights).sum(axis=1)
-
+st.write(portfolio_weights)
 
 
 st.write("Ecco un'anteprima di portfolio_cumulative_returns:")
