@@ -94,7 +94,7 @@ num_tickers = len(selected_tickers)
 st.write(num_tickers)
 # Calcola i ritorni settimanali per ogni ticker
 combined_data['Return'] = combined_data.groupby('Ticker')['Close'].pct_change()
-combined_data['Return'] *= 100
+
 st.write("Ecco un'anteprima di combined_data con return:")
 st.dataframe(combined_data)
 
