@@ -11,6 +11,9 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import plotly.graph_objects as go
+import time
+import random
+from datetime import datetime, timedelta
 
 # Set the title of the Streamlit app
 st.title("Stock Prices with Animation")
@@ -76,15 +79,17 @@ def random_3_years():
     
     return random_start.strftime('%Y-%m-%d'), random_end.strftime('%Y-%m-%d')
 
+start_date, end_date = random_3_years()
 
-st.write(max_ipo_year)
+st.write(start_date, end_date)
 
 for ticker in selected_tickers:
     # Fetch stock data for the selected symbol
         stock = yf.Ticker(ticker)
         #hist = stock.history(start="2019-02-01", interval="1wk") #funzionante, prob non riesce a fre grafici con troppi punti
         #hist = stock.history(period="max",interval="1wk" ) #funzionante
-        hist1 = stock.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
+        #hist1 = stock.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
+        hist1 = stock.history(start=start_date,end=end_date,interval="1wk" )
        
 
         hist1.reset_index(inplace=True)
