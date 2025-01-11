@@ -59,7 +59,7 @@ selected_stock = selected_tickers
 max_ipo_year = selected_stocks['ipo'].max()+1  # Anno di IPO più recente
 #max_ipo_year = 2024  # Anno di IPO più recente
 
-def random_3_years():
+def random_3_years(max_ipo_year):  # Pass max_ipo_year as parameter
     # Get yesterday's date
     yesterday = datetime.today() - timedelta(days=1)
     
@@ -78,8 +78,8 @@ def random_3_years():
     random_end = random_start + timedelta(days=3*365)
     
     return random_start.strftime('%Y-%m-%d'), random_end.strftime('%Y-%m-%d')
-
-start_date, end_date = random_3_years()
+    
+start_date, end_date = random_3_years(max_ipo_year)
 
 st.write(start_date, end_date)
 
