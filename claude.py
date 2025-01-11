@@ -53,8 +53,29 @@ selected_stocks = df[df['name'].isin(stock_input)]
 selected_tickers = selected_stocks['ticker']
 selected_stock = selected_tickers
 
-#max_ipo_year = selected_stocks['ipo'].max()+1  # Anno di IPO più recente
-max_ipo_year = 2024  # Anno di IPO più recente
+max_ipo_year = selected_stocks['ipo'].max()+1  # Anno di IPO più recente
+#max_ipo_year = 2024  # Anno di IPO più recente
+
+def random_3_years():
+    # Get yesterday's date
+    yesterday = datetime.today() - timedelta(days=1)
+    
+    # Create start date from max_ipo_year
+    start_boundary = datetime(max_ipo_year, 1, 1)
+    
+    # Calculate the latest possible start date (3 years before yesterday)
+    latest_start = yesterday - timedelta(days=3*365)
+    
+    # Generate random start date between max_ipo_year and latest possible start
+    days_range = (latest_start - start_boundary).days
+    if days_range < 0:
+        raise ValueError("max_ipo_year is too recent to allow for a 3-year period up to yesterday")
+    
+    random_start = start_boundary + timedelta(days=random.randint(0, days_range))
+    random_end = random_start + timedelta(days=3*365)
+    
+    return random_start.strftime('%Y-%m-%d'), random_end.strftime('%Y-%m-%d')
+
 
 st.write(max_ipo_year)
 
