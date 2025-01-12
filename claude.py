@@ -220,13 +220,16 @@ with st.expander("Stock Information"):
         st.write(f"**52 Week High:** ${info.get('fiftyTwoWeekHigh', 'N/A')}")
         st.write(f"**52 Week Low:** ${info.get('fiftyTwoWeekLow', 'N/A')}")
 # Display moving average crossover analysis
-with st.expander("Moving Average Analysis"):
+with st.expander("Perf Analysis"):
         # Calculate latest values
-        latest_close = hist['Close'].iloc[-1]
-       
+        hist_perf = hist['Close'].iloc[-1]
+        sp500_data_perf = hist['Close'].iloc[-1]
+
+        
 
         st.write(f"**Latest Values:**")
-        st.write(f"Close Price: ${latest_close:.2f}")
+        st.write(f"Performance: {hist_perf:.2f}%")
+        st.write(f"Performance: {sp500_data_perf:.2f}%")
 
 
         # Analyze crossovers
