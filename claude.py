@@ -245,6 +245,31 @@ with st.expander("Perf Analysis"):
         st.write(f"Final Portfolio value: ${combined_data_fin:.2f}")
 
 
+# Display performance analysis
+with st.expander("Perf Analysis"):
+        # Calculate latest values for portfolio and S&P500
+        hist_perf = hist['Close'].iloc[-1]
+        sp500_data_perf = sp500_data['Percent Change'].iloc[-1]
+        sp500_data_ini = sp500_data['Close'].iloc[0]
+        sp500_data_fin = sp500_data['Close'].iloc[-1]
+
+        # Display portfolio and S&P500 performance
+        st.write(f"**Performance Summary:**")
+        st.write(f"Performance Portfolio: {hist_perf:.2f}%")
+        st.write(f"Performance S&P500: {sp500_data_perf:.2f}%")
+        st.write(f"Initial S&P500 value: {sp500_data_ini:.2f} pt")
+        st.write(f"Final S&P500 value: {sp500_data_fin:.2f} pt")
+        
+        # Display individual stock values
+        st.write(f"\n**Individual Stock Values:**")
+        for ticker in selected_tickers:
+            stock_data = combined_data[combined_data['Ticker'] == ticker]
+            initial_value = stock_data['Close'].iloc[0]
+            final_value = stock_data['Close'].iloc[-1]
+            st.write(f"\n{ticker}:")
+            st.write(f"Initial value: ${initial_value:.2f}")
+            st.write(f"Final value: ${final_value:.2f}")
+
 
         # Analyze crossovers
         #if latest_ma1 > latest_ma2:
