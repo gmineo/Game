@@ -225,11 +225,17 @@ with st.expander("Perf Analysis"):
         hist_perf = hist['Close'].iloc[-1]
         sp500_data_perf = sp500_data['Percent Change'].iloc[-1]
 
+        hist_perf = hist['Close'].iloc[-1]
+        sp500_data_perf = sp500_data['Close'].iloc[0]
+        sp500_data_perf = sp500_data['Close'].iloc[-1]
+
         
 
         st.write(f"**Latest Values:**")
-        st.write(f"Performance: {hist_perf:.2f}%")
-        st.write(f"Performance: {sp500_data_perf:.2f}%")
+        st.write(f"Performance Portfolio: {hist_perf:.2f}%")
+        st.write(f"Performance S&P500: {sp500_data_perf:.2f}%")
+
+
 
 
         # Analyze crossovers
