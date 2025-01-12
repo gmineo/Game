@@ -233,14 +233,17 @@ with st.expander("Perf Analysis"):
         sp500_data_ini = sp500_data['Close'].iloc[0]
         sp500_data_fin = sp500_data['Close'].iloc[-1]
 
-        
+        combined_data['Return']
+        combined_data_ini = combined_data['Close'].iloc[0]
+        combined_data_fin = combined_data['Close'].iloc[-1]
 
         st.write(f"**Latest Values:**")
         st.write(f"Performance Portfolio: {hist_perf:.2f}%")
         st.write(f"Performance S&P500: {sp500_data_perf:.2f}%")
         st.write(f"Initial Index value S&P500: {sp500_data_ini:.2f} pt")
         st.write(f"Final Index value S&P500: {sp500_data_fin:.2f} pt")
-
+        st.write(f"Initial Portfolio value: ${combined_data_ini:.2f}")
+        st.write(f"Final Portfolio value: ${combined_data_fin:.2f}")
 
 
 
