@@ -223,7 +223,7 @@ with st.expander("Stock Information"):
 with st.expander("Perf Analysis"):
         # Calculate latest values
         hist_perf = hist['Close'].iloc[-1]
-        sp500_data_perf = hist['Close'].iloc[-1]
+        sp500_data_perf = sp500_data['Percent Change'].iloc[-1]
 
         
 
