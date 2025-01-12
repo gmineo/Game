@@ -231,9 +231,9 @@ with st.expander("Moving Average Analysis"):
 
         # Analyze crossovers
         #if latest_ma1 > latest_ma2:
-            st.write(f"🔼 The {ma1_name} is currently above the {ma2_name}, suggesting bullish momentum.")
+            #st.write(f"🔼 The {ma1_name} is currently above the {ma2_name}, suggesting bullish momentum.")
         #else:
-            st.write(f"🔽 The {ma1_name} is currently below the {ma2_name}, suggesting bearish momentum.")
+            #st.write(f"🔽 The {ma1_name} is currently below the {ma2_name}, suggesting bearish momentum.")
 
  
 
