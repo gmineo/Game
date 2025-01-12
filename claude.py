@@ -209,4 +209,15 @@ fig.frames = frames
     # Display the Plotly figure in Streamlit
 st.plotly_chart(fig)
 
+# Display additional stock information
+with st.expander("Stock Information"):
+        info = stock.info
+        st.write(f"**Company Name:** {info.get('longName', 'N/A')}")
+        st.write(f"**Sector:** {info.get('sector', 'N/A')}")
+        st.write(f"**Industry:** {info.get('industry', 'N/A')}")
+        st.write(f"**Current Price:** ${info.get('currentPrice', 'N/A')}")
+        st.write(f"**Market Cap:** ${info.get('marketCap', 'N/A'):,}")
+        st.write(f"**52 Week High:** ${info.get('fiftyTwoWeekHigh', 'N/A')}")
+        st.write(f"**52 Week Low:** ${info.get('fiftyTwoWeekLow', 'N/A')}")
+
 
