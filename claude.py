@@ -223,18 +223,16 @@ with st.expander("Stock Information"):
 with st.expander("Moving Average Analysis"):
         # Calculate latest values
         latest_close = hist['Close'].iloc[-1]
-        latest_ma1 = hist[ma1_name].iloc[-1]
-        latest_ma2 = hist[ma2_name].iloc[-1]
+       
 
         st.write(f"**Latest Values:**")
         st.write(f"Close Price: ${latest_close:.2f}")
-        st.write(f"{ma1_name}: ${latest_ma1:.2f}")
-        st.write(f"{ma2_name}: ${latest_ma2:.2f}")
+
 
         # Analyze crossovers
-        if latest_ma1 > latest_ma2:
+        #if latest_ma1 > latest_ma2:
             st.write(f"🔼 The {ma1_name} is currently above the {ma2_name}, suggesting bullish momentum.")
-        else:
+        #else:
             st.write(f"🔽 The {ma1_name} is currently below the {ma2_name}, suggesting bearish momentum.")
 
  
