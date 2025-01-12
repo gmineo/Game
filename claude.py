@@ -233,7 +233,6 @@ with st.expander("Perf Analysis"):
         sp500_data_ini = sp500_data['Close'].iloc[0]
         sp500_data_fin = sp500_data['Close'].iloc[-1]
 
-        combined_data['Return']
         combined_data_ini = combined_data['Close'].iloc[0]
         combined_data_fin = combined_data['Close'].iloc[-1]
 
