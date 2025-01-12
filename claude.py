@@ -237,7 +237,7 @@ with st.expander("Moving Average Analysis"):
         else:
             st.write(f"🔽 The {ma1_name} is currently below the {ma2_name}, suggesting bearish momentum.")
 
-except Exception as e:
+ except Exception as e:
     st.error(f"Error fetching data for {selected_stock}. Please check the stock symbol and try again.")
     st.error(f"Error details: {str(e)}")
 
