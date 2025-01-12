@@ -134,6 +134,10 @@ returns = combined_data.pivot_table(
 # Fill any NaN values with 0 to handle missing data
 returns = returns.fillna(0)
 
+st.write("Ecco un'anteprima di returns:")
+st.dataframe(returns)
+
+
 # Calculate the equally weighted portfolio returns
 portfolio_weights = [1/num_tickers] * num_tickers
 portfolio_returns = (returns * portfolio_weights).sum(axis=1)
@@ -235,7 +239,7 @@ with st.expander("Perf Analysis"):
         st.write(f"Performance Portfolio: {hist_perf:.2f}%")
         st.write(f"Performance S&P500: {sp500_data_perf:.2f}%")
         st.write(f"Initial Index value S&P500: {sp500_data_ini:.2f} pt")
-        st.write(f"Final Index value S&P500: {sp500_data_fin:.2f}% pt")
+        st.write(f"Final Index value S&P500: {sp500_data_fin:.2f} pt")
 
 
 
