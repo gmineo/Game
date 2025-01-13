@@ -242,38 +242,32 @@ st.dataframe(combined_data)
    # Calcola il numero di titoli
 num_tickers = len(selected_tickers)
 st.write(num_tickers)
-# Calcola i ritorni settimanali per ogni ticker
-# Calculate weekly returns for each ticker
-combined_data['Return'] = combined_data.groupby('Ticker')['Close'].pct_change()
 
-# Pivot the returns table
-returns = combined_data.pivot_table(
+
+# Calcola i ritorni settimanali per ogni ticker e la performance del portafoglio
+# Calculate returns and performance for each ticker
+for ticker in selected_tickers:
+    ticker_data = combined_data[combined_data['Ticker'] == ticker]
+    initial_price = ticker_data['Close'].iloc[0]
+    ticker_data['Percent Change'] = ((ticker_data['Close'] - initial_price) / initial_price) * 100
+    combined_data.loc[combined_data['Ticker'] == ticker, 'Percent Change'] = ticker_data['Percent Change']
+
+# Create pivot table for portfolio calculation
+portfolio_data = combined_data.pivot_table(
     index='Date',
     columns='Ticker',
-    values='Return',
+    values='Percent Change'
 )
 
-# Fill any NaN values with 0 to handle missing data
-#returns = returns.fillna(0)
-
-st.write("Ecco un'anteprima di returns:")
-st.dataframe(returns)
-
-
-# Calculate the equally weighted portfolio returns
+# Calculate equally weighted portfolio performance
 portfolio_weights = [1/num_tickers] * num_tickers
-portfolio_returns = (returns * portfolio_weights).sum(axis=1)
-
-# Calculate cumulative returns properly using compound returns formula
-portfolio_cumulative_returns = (1 + portfolio_returns).cumprod() - 1
-
-# Convert to percentage
-portfolio_cumulative_returns = portfolio_cumulative_returns * 100
+portfolio_performance = portfolio_data.mul(portfolio_weights).sum(axis=1)
 
 # Convert to DataFrame with proper date index
-hist = pd.DataFrame(portfolio_cumulative_returns)
-hist.reset_index(inplace=True)
+hist = pd.DataFrame(portfolio_performance)
+hist.reset_index()
 hist.columns = ["Date", "Close"]
+
 
 st.write("Ecco un'anteprima di hist:")
 st.dataframe(hist)
