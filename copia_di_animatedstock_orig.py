@@ -28,7 +28,7 @@ class StockAnalyzer:
                 'Pfizer', 'Walt Disney', 'PayPal', 'Verizon', 'Intel', 'Coca-Cola',
                 'Wells Fargo', 'AT&T', 'General Electric', 'Oracle', 'Citigroup', 'IBM',
                 'Philip Morris Int.', 'Cisco Systems', 'Merck', 'PepsiCo', 'AIG', 'Amgen',
-                'UPS', 'Bristol-Myers Squibb', 'Qualcomm', 'Loews', 'Raytheon', 'McDonald's',
+                'UPS', 'Bristol-Myers Squibb', 'Qualcomm', 'Loews', 'Raytheon', 'McDonalds',
                 'Boeing', '3M', 'Altria Group'
             ],
             'ticker': [
