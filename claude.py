@@ -132,7 +132,7 @@ returns = combined_data.pivot_table(
 )
 
 # Fill any NaN values with 0 to handle missing data
-returns = returns.fillna(0)
+#returns = returns.fillna(0)
 
 st.write("Ecco un'anteprima di returns:")
 st.dataframe(returns)
