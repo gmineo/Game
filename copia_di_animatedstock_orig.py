@@ -11,6 +11,9 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import plotly.graph_objects as go
+import time
+import random
+from datetime import datetime, timedelta
 
 # Set the title of the Streamlit app
 st.title("Stock Prices with Animation")
@@ -53,17 +56,40 @@ selected_stocks = df[df['name'].isin(stock_input)]
 selected_tickers = selected_stocks['ticker']
 selected_stock = selected_tickers
 
-#max_ipo_year = selected_stocks['ipo'].max()+1  # Anno di IPO più recente
-max_ipo_year = 2024  # Anno di IPO più recente
+max_ipo_year = selected_stocks['ipo'].max()+1  # Anno di IPO più recente
+#max_ipo_year = 2024  # Anno di IPO più recente
 
-st.write(max_ipo_year)
+def random_3_years(max_ipo_year):  # Pass max_ipo_year as parameter
+    # Get yesterday's date
+    yesterday = datetime.today() - timedelta(days=1)
+    
+    # Create start date from max_ipo_year
+    start_boundary = datetime(max_ipo_year, 1, 1)
+    
+    # Calculate the latest possible start date (3 years before yesterday)
+    latest_start = yesterday - timedelta(days=3*365)
+    
+    # Generate random start date between max_ipo_year and latest possible start
+    days_range = (latest_start - start_boundary).days
+    if days_range < 0:
+        raise ValueError("max_ipo_year is too recent to allow for a 3-year period up to yesterday")
+    
+    random_start = start_boundary + timedelta(days=random.randint(0, days_range))
+    random_end = random_start + timedelta(days=3*365)
+    
+    return random_start.strftime('%Y-%m-%d'), random_end.strftime('%Y-%m-%d')
+    
+start_date, end_date = random_3_years(max_ipo_year)
+
+st.write(start_date, end_date)
 
 for ticker in selected_tickers:
     # Fetch stock data for the selected symbol
         stock = yf.Ticker(ticker)
         #hist = stock.history(start="2019-02-01", interval="1wk") #funzionante, prob non riesce a fre grafici con troppi punti
         #hist = stock.history(period="max",interval="1wk" ) #funzionante
-        hist1 = stock.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
+        #hist1 = stock.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
+        hist1 = stock.history(start=start_date,end=end_date,interval="1wk" )
        
 
         hist1.reset_index(inplace=True)
@@ -74,7 +100,8 @@ for ticker in selected_tickers:
 combined_data.reset_index(inplace=True)
 
 sp = yf.Ticker('^GSPC')
-sp500_data=sp.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
+#sp500_data=sp.history(start=f"{max_ipo_year}-01-01",interval="1wk" )
+sp500_data=sp.history(start=start_date, end=end_date, interval="1wk" )
 sp500_data = sp500_data[['Close']]  # Mantieni solo la colonna 'Close'
 # Calcola la variazione percentuale per l'S&P 500
 sp500_data['returns']=sp500_data['Close'].pct_change()
@@ -94,76 +121,36 @@ st.dataframe(combined_data)
 num_tickers = len(selected_tickers)
 st.write(num_tickers)
 # Calcola i ritorni settimanali per ogni ticker
+# Calculate weekly returns for each ticker
 combined_data['Return'] = combined_data.groupby('Ticker')['Close'].pct_change()
 
-st.write("Ecco un'anteprima di combined_data con return:")
-st.dataframe(combined_data)
-
-
-
-
-
-
-
-
+# Pivot the returns table
 returns = combined_data.pivot_table(
     index='Date',
     columns='Ticker',
     values='Return',
 )
 
-
+# Fill any NaN values with 0 to handle missing data
+#returns = returns.fillna(0)
 
 st.write("Ecco un'anteprima di returns:")
 st.dataframe(returns)
 
 
+# Calculate the equally weighted portfolio returns
+portfolio_weights = [1/num_tickers] * num_tickers
+portfolio_returns = (returns * portfolio_weights).sum(axis=1)
 
+# Calculate cumulative returns properly using compound returns formula
+portfolio_cumulative_returns = (1 + portfolio_returns).cumprod() - 1
 
+# Convert to percentage
+portfolio_cumulative_returns = portfolio_cumulative_returns * 100
 
-
-
-
-
-
-
-# Calcola i ritorni cumulativi
-cumulative_returns = (1+returns).cumprod()
-
-
-
-
-
-
-st.write("Ecco un'anteprima di cumulative_returns:")
-st.write(cumulative_returns)
-# Portafoglio equally weighted
-portfolio_weights = [1/num_tickers]*num_tickers
-portfolio_cumulative_returns = (cumulative_returns * portfolio_weights).sum(axis=1)
-
-st.write("Ecco un'anteprima di portfolio_weights:")
-st.write(portfolio_weights)
-
-
-st.write("Ecco un'anteprima di portfolio_cumulative_returns:")
-st.dataframe(portfolio_cumulative_returns)
-
-   
-
-
-
-hist=portfolio_cumulative_returns
-
-
-
-hist = pd.DataFrame(hist)
-
-st.write("Ecco un'anteprima di hist:")
-st.dataframe(hist)
-
-# Reimposta l'indice e aggiungi la colonna "Date"
+# Convert to DataFrame with proper date index
+hist = pd.DataFrame(portfolio_cumulative_returns)
 hist.reset_index(inplace=True)
-# Rinomina le colonne in "Date" e "Close"
 hist.columns = ["Date", "Close"]
 
 st.write("Ecco un'anteprima di hist:")
@@ -226,4 +213,74 @@ fig.frames = frames
     # Display the Plotly figure in Streamlit
 st.plotly_chart(fig)
 
+# Display additional stock information
+with st.expander("Stock Information"):
+        info = stock.info
+        st.write(f"**Company Name:** {info.get('longName', 'N/A')}")
+        st.write(f"**Sector:** {info.get('sector', 'N/A')}")
+        st.write(f"**Industry:** {info.get('industry', 'N/A')}")
+        st.write(f"**Current Price:** ${info.get('currentPrice', 'N/A')}")
+        st.write(f"**Market Cap:** ${info.get('marketCap', 'N/A'):,}")
+        st.write(f"**52 Week High:** ${info.get('fiftyTwoWeekHigh', 'N/A')}")
+        st.write(f"**52 Week Low:** ${info.get('fiftyTwoWeekLow', 'N/A')}")
+# Display moving average crossover analysis
+with st.expander("Perf Analysis"):
+        # Calculate latest values
+        hist_perf = hist['Close'].iloc[-1]
+        sp500_data_perf = sp500_data['Percent Change'].iloc[-1]
 
+        hist_perf = hist['Close'].iloc[-1]
+        sp500_data_ini = sp500_data['Close'].iloc[0]
+        sp500_data_fin = sp500_data['Close'].iloc[-1]
+
+        combined_data_ini = combined_data['Close'].iloc[0]
+        combined_data_fin = combined_data['Close'].iloc[-1]
+
+        st.write(f"**Latest Values:**")
+        st.write(f"Performance Portfolio: {hist_perf:.2f}%")
+        st.write(f"Performance S&P500: {sp500_data_perf:.2f}%")
+        st.write(f"Initial Index value S&P500: {sp500_data_ini:.2f} pt")
+        st.write(f"Final Index value S&P500: {sp500_data_fin:.2f} pt")
+        st.write(f"Initial Portfolio value: ${combined_data_ini:.2f}")
+        st.write(f"Final Portfolio value: ${combined_data_fin:.2f}")
+
+
+# Display performance analysis
+with st.expander("Perf Analysis"):
+       # Get start and end dates
+       start_date = sp500_data['Date'].iloc[0].strftime('%Y-%m-%d')
+       end_date = sp500_data['Date'].iloc[-1].strftime('%Y-%m-%d')
+       
+       # Display period
+       st.write(f"**Period:** {start_date} to {end_date}")
+       
+       # Calculate latest values for portfolio and S&P500
+       hist_perf = hist['Close'].iloc[-1]
+       sp500_data_perf = sp500_data['Percent Change'].iloc[-1]
+       sp500_data_ini = sp500_data['Close'].iloc[0]
+       sp500_data_fin = sp500_data['Close'].iloc[-1]
+
+       # Display portfolio and S&P500 performance
+       st.write(f"\n**Performance Summary:**")
+       st.write(f"Performance Portfolio: {hist_perf:.2f}%")
+       st.write(f"Performance S&P500: {sp500_data_perf:.2f}%")
+       st.write(f"Initial S&P500 value: {sp500_data_ini:.2f} pt")
+       st.write(f"Final S&P500 value: {sp500_data_fin:.2f} pt")
+       
+       # Display individual stock values
+       st.write(f"\n**Individual Stock Values:**")
+       for ticker in selected_tickers:
+           stock_data = combined_data[combined_data['Ticker'] == ticker]
+           initial_value = stock_data['Close'].iloc[0]
+           final_value = stock_data['Close'].iloc[-1]
+           st.write(f"\n{ticker}:")
+           st.write(f"Initial value: ${initial_value:.2f}")
+           st.write(f"Final value: ${final_value:.2f}")
+
+        # Analyze crossovers
+        #if latest_ma1 > latest_ma2:
+            #st.write(f"🔼 The {ma1_name} is currently above the {ma2_name}, suggesting bullish momentum.")
+        #else:
+            #st.write(f"🔽 The {ma1_name} is currently below the {ma2_name}, suggesting bearish momentum.")
+
+ 
