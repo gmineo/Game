@@ -9,6 +9,9 @@ class StockAnalyzer:
     def __init__(self):
         self.setup_page()
         self.load_stock_data()
+        # Initialize session state for selected stocks if it doesn't exist
+        if 'selected_stocks' not in st.session_state:
+            st.session_state.selected_stocks = []
         
     def setup_page(self):
         """Initialize Streamlit page settings"""
@@ -25,7 +28,7 @@ class StockAnalyzer:
                 'Pfizer', 'Walt Disney', 'PayPal', 'Verizon', 'Intel', 'Coca-Cola',
                 'Wells Fargo', 'AT&T', 'General Electric', 'Oracle', 'Citigroup', 'IBM',
                 'Philip Morris Int.', 'Cisco Systems', 'Merck', 'PepsiCo', 'AIG', 'Amgen',
-                'UPS', 'Bristol-Myers Squibb', 'Qualcomm', 'Loews', 'Raytheon', 'McDonalds',
+                'UPS', 'Bristol-Myers Squibb', 'Qualcomm', 'Loews', 'Raytheon', 'McDonald's',
                 'Boeing', '3M', 'Altria Group'
             ],
             'ticker': [
@@ -199,21 +202,16 @@ class StockAnalyzer:
                 perf = ((final_value - initial_value) / initial_value) * 100
                 st.write(f"{ticker}: {perf:.2f}% (${initial_value:.2f} → ${final_value:.2f})")
     
-    def run(self):
-        """Main application loop"""
-        # Get user input
-        selected_stocks = st.multiselect("Select stocks for your portfolio:", options=self.df['name'])
-        if not selected_stocks:
-            st.warning("Please select at least one stock to analyze.")
-            return
-            
-        # Process selected stocks
+    def analyze_portfolio(self, selected_stocks):
+        """Analyze the selected portfolio for a given period"""
         selected_data = self.df[self.df['name'].isin(selected_stocks)]
         selected_tickers = selected_data['ticker'].tolist()
         max_ipo_year = selected_data['ipo'].max() + 1
         
         # Generate date range and fetch data
         start_date, end_date = self.get_random_date_range(max_ipo_year)
+        st.write(f"Analyzing period: {start_date} to {end_date}")
+        
         combined_data = self.fetch_stock_data(selected_tickers, start_date, end_date)
         sp500_data = self.fetch_sp500_data(start_date, end_date)
         
@@ -226,6 +224,33 @@ class StockAnalyzer:
         
         # Display performance metrics
         self.display_performance_metrics(portfolio_data, sp500_data, combined_data, selected_tickers)
+    
+    def run(self):
+        """Main application loop"""
+        # Create two columns for the selection and refresh button
+        col1, col2 = st.columns([3, 1])
+        
+        with col1:
+            # Get user input using session state
+            selected_stocks = st.multiselect(
+                "Select stocks for your portfolio:",
+                options=self.df['name'],
+                default=st.session_state.selected_stocks
+            )
+        
+        with col2:
+            # Add refresh button
+            refresh = st.button("New Random Period", key="refresh_period")
+        
+        if not selected_stocks:
+            st.warning("Please select at least one stock to analyze.")
+            return
+            
+        # Update session state
+        st.session_state.selected_stocks = selected_stocks
+        
+        # Analyze portfolio
+        self.analyze_portfolio(selected_stocks)
 
 if __name__ == "__main__":
     analyzer = StockAnalyzer()
