@@ -49,13 +49,13 @@ class StockAnalyzer:
         """Generate random 3-year date range starting from max IPO year"""
         yesterday = datetime.today() - timedelta(days=1)
         start_boundary = datetime(max_ipo_year, 1, 1)
-        latest_start = yesterday - timedelta(days=3*365)
+        latest_start = yesterday - timedelta(days=1*365)
         
         if (latest_start - start_boundary).days < 0:
             raise ValueError("Selected stocks' IPO dates are too recent for 3-year analysis")
             
         random_start = start_boundary + timedelta(days=random.randint(0, (latest_start - start_boundary).days))
-        random_end = random_start + timedelta(days=3*365)
+        random_end = random_start + timedelta(days=1*365)
         
         return random_start.strftime('%Y-%m-%d'), random_end.strftime('%Y-%m-%d')
         
