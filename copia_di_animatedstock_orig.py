@@ -65,7 +65,7 @@ class StockAnalyzer:
         
         for ticker in selected_tickers:
             stock = yf.Ticker(ticker)
-            hist = stock.history(start=start_date, end=end_date, interval="d")
+            hist = stock.history(start=start_date, end=end_date, interval="1d")
             hist.reset_index(inplace=True)
             hist['Ticker'] = ticker
             combined_data = pd.concat([combined_data, hist])
@@ -76,7 +76,7 @@ class StockAnalyzer:
     def fetch_sp500_data(self, start_date, end_date):
         """Fetch S&P 500 data and calculate performance metrics"""
         sp = yf.Ticker('^GSPC')
-        data = sp.history(start=start_date, end=end_date, interval="d")[['Close']]
+        data = sp.history(start=start_date, end=end_date, interval="1d")[['Close']]
         data['returns'] = data['Close'].pct_change()
         data['Percent Change'] = ((data['Close'] - data['Close'].iloc[0]) / data['Close'].iloc[0]) * 100
         data.reset_index(inplace=True)
